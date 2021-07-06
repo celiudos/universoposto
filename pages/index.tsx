@@ -1,24 +1,19 @@
 import Navbar from "@components/Navbar";
-import { Layout } from "antd";
-
-const { Header, Footer, Sider, Content } = Layout;
+import PostDestaque from "@components/PostDestaque";
+import Container from "@styles/Container";
+import styled from "styled-components";
 
 export default function Home() {
   return (
-    <div className="layout">
+    <Container>
       <Navbar />
-    </div>
+      <CorpoCss>
+        <PostDestaque />
+      </CorpoCss>
+    </Container>
   );
-  // return (
-  //   <Layout>
-  //     <Header>
-  //       <Navbar />
-  //     </Header>
-  //     <Layout>
-  //       <Content>Content</Content>
-  //       <Sider>Sider</Sider>
-  //     </Layout>
-  //     <Footer>Footer</Footer>
-  //   </Layout>
-  // );
 }
+
+const CorpoCss = styled.div`
+  margin: 50px 0 0 0;
+`;

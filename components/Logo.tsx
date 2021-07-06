@@ -1,6 +1,6 @@
+import LogoImg from "@public/logo/logo-grande.png";
 import Image from "next/image";
 import styled from "styled-components";
-import LogoImg from "../public/logo/logo-grande.png";
 
 export default function Logo(): JSX.Element {
   return (
