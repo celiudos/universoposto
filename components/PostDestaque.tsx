@@ -26,7 +26,7 @@ export default function PostDestaque(): JSX.Element {
 
 const PostDestaqueCss = styled.div`
   display: flex;
-  width: 800px;
+  /* width: 800px; */
 `;
 
 const ImgCss = styled.div`
@@ -34,5 +34,5 @@ const ImgCss = styled.div`
 `;
 
 const ConteudoCss = styled.div`
-  padding: 0 30px 30px;
+  padding: 0 0 0 30px;
 `;
