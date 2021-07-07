@@ -47,6 +47,12 @@ export default function Categoria({ categoria, posts }: Props) {
         <List
           itemLayout="horizontal"
           dataSource={posts}
+          pagination={{
+            onChange: (page) => {
+              console.log(page);
+            },
+            pageSize: 10,
+          }}
           renderItem={(post) => (
             <List.Item>
               <List.Item.Meta
