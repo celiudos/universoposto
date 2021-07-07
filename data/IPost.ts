@@ -10,7 +10,7 @@ interface IPost {
   cat?: ICategoria;
   autor: string;
   conteudo: string;
-  data: string;
+  data: number;
 }
 
 export default IPost;
