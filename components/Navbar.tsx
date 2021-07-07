@@ -1,6 +1,7 @@
 import Container from "@styles/Container";
 import { DisplayFlexSpaceBetween } from "@styles/DisplayFlex";
 import { Menu } from "antd";
+import Link from "next/link";
 import Logo from "./Logo";
 
 export default function Navbar(): JSX.Element {
@@ -14,9 +15,9 @@ export default function Navbar(): JSX.Element {
               Buscar
             </Menu.Item> */}
             <Menu.Item key="sobre">
-              <a href="/sobre" target="_blank" rel="noopener noreferrer">
-                Sobre
-              </a>
+              <Link href={"/page/sobre"} passHref>
+                <a>Sobre</a>
+              </Link>
             </Menu.Item>
           </Menu>
         </DisplayFlexSpaceBetween>
