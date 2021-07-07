@@ -1,4 +1,3 @@
-import { SearchOutlined } from "@ant-design/icons";
 import Container from "@styles/Container";
 import { DisplayFlexSpaceBetween } from "@styles/DisplayFlex";
 import { Menu } from "antd";
@@ -11,9 +10,9 @@ export default function Navbar(): JSX.Element {
         <DisplayFlexSpaceBetween>
           <Logo />
           <Menu mode={"horizontal"} theme="light">
-            <Menu.Item key="buscar" icon={<SearchOutlined />}>
+            {/* <Menu.Item key="buscar" icon={<SearchOutlined />}>
               Buscar
-            </Menu.Item>
+            </Menu.Item> */}
             <Menu.Item key="sobre">
               <a href="/sobre" target="_blank" rel="noopener noreferrer">
                 Sobre

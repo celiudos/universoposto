@@ -1,52 +1,66 @@
-import Footer from "@components/Footer";
-import Navbar from "@components/Navbar";
+import Layout from "@components/Layout";
 import PostDestaque from "@components/PostDestaque";
 import PostVertical from "@components/PostVertical";
+import categoriasMock from "@data/categorias.json";
+import ICategoria from "@data/ICategoria";
+import IPost from "@data/IPost";
+import postsMock from "@data/posts.json";
 import Ad from "@styles/Ad";
 import Container from "@styles/Container";
 import { Col, Row } from "antd";
 import styled from "styled-components";
 
-export default function Home() {
-  return (
-    <MainCss>
-      <Navbar />
+type Props = {
+  postDestaque: IPost;
+  postsSubdestaque: IPost[];
+  postsSidebar: IPost[];
+};
 
-      <section>
-        <Container>
-          <RowCorpoCss gutter={24}>
-            <Col span={17}>
-              <Row>
-                <Col>
-                  <PostDestaque />
-                </Col>
-              </Row>
-              <RowSubdestaqueCss>
-                <Col span={12}>
-                  <PostVertical />
-                </Col>
-                <Col span={12}>
-                  <PostVertical />
-                </Col>
-              </RowSubdestaqueCss>
-              <Row>
-                <Col span={24}>
-                  <Ad style={{ height: 100 }} />
-                </Col>
-              </Row>
-            </Col>
-            <ColSidebarCss span={7}>
-              <Row justify="end">
-                <PostVertical comImg />
-                <Ad />
-                <PostVertical />
-              </Row>
-            </ColSidebarCss>
-          </RowCorpoCss>
-        </Container>
-      </section>
-      <Footer />
-    </MainCss>
+export default function Home({
+  postDestaque,
+  postsSubdestaque,
+  postsSidebar,
+}: Props) {
+  return (
+    <Layout>
+      <Container>
+        <RowCorpoCss gutter={24}>
+          <Col span={17}>
+            <Row>
+              <Col>
+                <PostDestaque post={postDestaque} />
+              </Col>
+            </Row>
+            <RowSubdestaqueCss>
+              {postsSubdestaque
+                ? postsSubdestaque.map((post, key) => (
+                    <Col key={key} span={12}>
+                      <PostVertical post={post} />
+                    </Col>
+                  ))
+                : null}
+            </RowSubdestaqueCss>
+            <Row>
+              <Col span={24}>
+                <Ad style={{ height: 100 }} />
+              </Col>
+            </Row>
+          </Col>
+          <ColSidebarCss span={7}>
+            <Row justify="end">
+              {postsSidebar
+                ? postsSidebar.map((post, key) => (
+                    <Col key={key}>
+                      <PostVertical post={post} />
+                    </Col>
+                  ))
+                : null}
+              <Ad />
+            </Row>
+          </ColSidebarCss>
+        </RowCorpoCss>
+      </Container>
+    </Layout>
   );
 }
 
@@ -64,9 +78,18 @@ const ColSidebarCss = styled(Col)`
   border-left: 1px solid #ccc;
 `;
 
-const MainCss = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  justify-content: space-between;
-`;
+export async function getStaticProps() {
+  const categorias = categoriasMock as ICategoria[];
+  const posts = postsMock.map((p) => ({
+    ...p,
+    cat: categorias.filter((c) => c.id === p.catId)[0],
+  })) as IPost[];
+
+  return {
+    props: {
+      postDestaque: posts[0],
+      postsSubdestaque: [posts[1], posts[2]],
+      postsSidebar: [posts[3], posts[4]],
+    },
+  };
+}

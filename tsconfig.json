@@ -6,7 +6,9 @@
     "paths": {
       "@components/*": ["./components/*"],
       "@styles/*": ["./styles/*"],
-      "@public/*": ["./public/*"]
+      "@public/*": ["./public/*"],
+      "@data/*": ["./data/*"],
+      "@utils/*": ["./utils/*"]
     },
     "allowJs": true,
     "skipLibCheck": true,
