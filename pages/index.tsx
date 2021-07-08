@@ -4,10 +4,11 @@ import PostVertical from "@components/PostVertical";
 import categoriasMock from "@data/categorias.json";
 import ICategoria from "@data/ICategoria";
 import IPost from "@data/IPost";
-import postsMock from "@data/posts.json";
 import Ad from "@styles/Ad";
 import Container from "@styles/Container";
 import { Col, Row } from "antd";
+import { useSelector } from "react-redux";
+import { useFirestore } from "react-redux-firebase";
 import styled from "styled-components";
 
 type Props = {
@@ -21,6 +22,9 @@ export default function Home({
   postsSubdestaque,
   postsSidebar,
 }: Props) {
+  const firestore = useFirestore();
+  const posts = useSelector((state) => state.firestore.ordered.posts);
+
   return (
     <Layout>
       <Container>
@@ -80,10 +84,14 @@ const ColSidebarCss = styled(Col)`
 
 export async function getStaticProps() {
   const categorias = categoriasMock as ICategoria[];
-  const posts = postsMock.map((p) => ({
-    ...p,
-    cat: categorias.filter((c) => c.id === p.catId)[0],
-  })) as IPost[];
+  // const posts = postsMock.map((p) => ({
+  //   ...p,
+  //   cat: categorias.filter((c) => c.id === p.catId)[0],
+  // })) as IPost[];
+
+  let posts = await firestore.get({ collection: "posts" });
+
+  console.log("posts:", posts);
 
   return {
     props: {

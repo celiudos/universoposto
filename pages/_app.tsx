@@ -5,7 +5,7 @@ import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 import { useStore } from "store/storeConfig";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  const { rrfProps, store } = useStore(pageProps.initialReduxState);
+  const { store, rrfProps } = useStore(pageProps.initialReduxState);
 
   return (
     <Provider store={store}>
