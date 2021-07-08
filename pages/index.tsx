@@ -1,29 +1,20 @@
 import Layout from "@components/Layout";
 import PostDestaque from "@components/PostDestaque";
 import PostVertical from "@components/PostVertical";
-import categoriasMock from "@data/categorias.json";
-import ICategoria from "@data/ICategoria";
 import IPost from "@data/IPost";
 import Ad from "@styles/Ad";
 import Container from "@styles/Container";
 import { Col, Row } from "antd";
-import { useSelector } from "react-redux";
-import { useFirestore } from "react-redux-firebase";
+import FirestoreApi from "firebase/FirebaseApi";
+import { InferGetStaticPropsType } from "next";
 import styled from "styled-components";
-
-type Props = {
-  postDestaque: IPost;
-  postsSubdestaque: IPost[];
-  postsSidebar: IPost[];
-};
 
 export default function Home({
   postDestaque,
   postsSubdestaque,
   postsSidebar,
-}: Props) {
-  const firestore = useFirestore();
-  const posts = useSelector((state) => state.firestore.ordered.posts);
+}: InferGetStaticPropsType<typeof getStaticProps>) {
+  console.log("postDestaque:", postDestaque);
 
   return (
     <Layout>
@@ -82,22 +73,22 @@ const ColSidebarCss = styled(Col)`
   border-left: 1px solid #ccc;
 `;
 
-export async function getStaticProps() {
-  const categorias = categoriasMock as ICategoria[];
-  // const posts = postsMock.map((p) => ({
+export const getStaticProps = async () => {
+  // const categorias = categoriasMock as ICategoria[];
+  // const posts = posts.map((p) => ({
   //   ...p,
   //   cat: categorias.filter((c) => c.id === p.catId)[0],
   // })) as IPost[];
 
-  let posts = await firestore.get({ collection: "posts" });
-
-  console.log("posts:", posts);
+  const fb = new FirestoreApi();
+  const postDestaque = (await fb.getPostDestaque()) as IPost;
+  // const posts = (await fb.getCollection("posts")) as IPost[];
 
   return {
     props: {
-      postDestaque: posts[0],
-      postsSubdestaque: [posts[1], posts[2]],
-      postsSidebar: [posts[3], posts[4]],
+      postDestaque,
+      postsSubdestaque: [postDestaque],
+      postsSidebar: [postDestaque],
     },
   };
-}
+};

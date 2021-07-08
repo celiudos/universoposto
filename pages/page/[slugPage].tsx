@@ -1,19 +1,19 @@
 import { HomeOutlined } from "@ant-design/icons";
 import Layout from "@components/Layout";
-import IPost from "@data/IPost";
-import pagesMock from "@data/pages.json";
+import IPagina from "@data/IPagina";
 import Container from "@styles/Container";
 import { Breadcrumb, Space, Spin } from "antd";
 import Text from "antd/lib/typography/Text";
 import Title from "antd/lib/typography/Title";
+import FirestoreApi from "firebase/FirebaseApi";
 import { useRouter } from "next/dist/client/router";
 import DateUtils from "utils/DateUtils";
 
 type Props = {
-  post: IPost;
+  pagina: IPagina;
 };
 
-export default function Pagina({ post }: Props) {
+export default function Pagina({ pagina }: Props) {
   const router = useRouter();
 
   if (router.isFallback)
@@ -24,6 +24,8 @@ export default function Pagina({ post }: Props) {
         </Container>
       </Layout>
     );
+
+  if (!pagina) return null;
 
   return (
     <Layout>
@@ -36,16 +38,15 @@ export default function Pagina({ post }: Props) {
             <Breadcrumb.Item>Página</Breadcrumb.Item>
           </Breadcrumb>
 
-          <Title>{post.titulo}</Title>
-          <Text type="secondary">{post.resumo}</Text>
+          <Title>{pagina?.titulo}</Title>
           <div>
-            <Text>{DateUtils.formatarDataUX({ data: post.data })}</Text>
+            <Text>{DateUtils.formatarDataUX({ data: pagina.updatedAt })}</Text>
           </div>
           <hr />
           <Text>
             <div
               dangerouslySetInnerHTML={{
-                __html: post.conteudo,
+                __html: pagina.conteudo,
               }}
             ></div>
           </Text>
@@ -68,9 +69,12 @@ type Params = {
   };
 };
 
-export async function getStaticProps({ params }: Params) {
-  let post = pagesMock.filter((p) => p.slug === params.slugPage)[0] as IPost;
+export const getStaticProps = async ({ params }: Params) => {
+  const fb = new FirestoreApi();
+  let pagina = (await fb.getDocBySlug("paginas", params.slugPage)) as IPagina;
+  // let pagina = (await fb.getDoc("paginas", "OKnlSx4YwZahFTCJMQrc")) as IPagina;
+
   return {
-    props: { post },
+    props: { pagina },
   };
-}
+};

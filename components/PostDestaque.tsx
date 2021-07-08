@@ -1,5 +1,4 @@
 import IPost from "@data/IPost";
-import Img1 from "@public/img/img1.png";
 import Text from "antd/lib/typography/Text";
 import Title from "antd/lib/typography/Title";
 import Image from "next/image";
@@ -12,25 +11,29 @@ type Props = {
 };
 
 export default function PostDestaque({ post }: Props): JSX.Element {
+  const imgExibicao = post._imgExibicao;
+
   return (
     <PostDestaqueCss>
-      <LinkPostECat catSlug={post.cat?.slug} postSlug={post.slug}>
-        <ImgCss>
-          <Image
-            layout="fixed"
-            src={Img1}
-            alt="Img1"
-            height={300}
-            width={400}
-          />
-        </ImgCss>
-      </LinkPostECat>
+      {imgExibicao && (
+        <LinkPostECat catSlug={post._catId?.slug} postSlug={post.slug}>
+          <ImgCss>
+            <Image
+              layout="fixed"
+              src={imgExibicao?.[0].url.md}
+              alt={post.titulo}
+              height={300}
+              width={400}
+            />
+          </ImgCss>
+        </LinkPostECat>
+      )}
       <ConteudoCss>
-        <LinkPostECat catSlug={post.cat?.slug}>
-          <Text type="secondary">{post.cat?.titulo}</Text>
+        <LinkPostECat catSlug={post._catId?.slug}>
+          <Text type="secondary">{post._catId?.titulo}</Text>
         </LinkPostECat>
 
-        <LinkPostECat catSlug={post.cat?.slug} postSlug={post.slug}>
+        <LinkPostECat catSlug={post._catId?.slug} postSlug={post.slug}>
           <Title>{post.titulo}</Title>
           <Text>{post.resumo}</Text>
         </LinkPostECat>

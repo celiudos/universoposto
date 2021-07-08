@@ -18,4 +18,27 @@ export default class DateUtils {
       return "-";
     }
   }
+
+  static getDateFirebase = (
+    dataFirebase:
+      | {
+          seconds: number | undefined;
+          nanoseconds: number | undefined;
+        }
+      | undefined
+  ): number => {
+    if (!dataFirebase) {
+      console.error("Erro getDateFirebase: não há dado presente", dataFirebase);
+      return new Date().getTime();
+    }
+
+    if (
+      dataFirebase.seconds === undefined ||
+      dataFirebase.nanoseconds === undefined
+    ) {
+      return new Date().getTime();
+    } else {
+      return dataFirebase.seconds * 1000 + dataFirebase.nanoseconds / 1000000;
+    }
+  };
 }

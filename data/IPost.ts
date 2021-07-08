@@ -1,16 +1,19 @@
+import IArquivo from "./IArquivo";
 import ICategoria from "./ICategoria";
+import IFirebase, { TFirebaseId } from "./IFirebase";
 
-interface IPost {
-  titulo: string;
-  subtitulo: string;
-  resumo: string;
+interface IPost extends IFirebase {
+  catId: TFirebaseId;
+  _catId: ICategoria;
+  imgExibicao?: TFirebaseId[];
+  _imgExibicao?: IArquivo[];
+  galeria?: TFirebaseId[];
+  _galeria?: IArquivo[];
   slug: string;
-  id: string;
-  catId: number;
-  cat?: ICategoria;
-  autor: string;
+  isDestaque: boolean;
+  resumo: string;
+  titulo: string;
   conteudo: string;
-  data: number;
 }
 
 export default IPost;

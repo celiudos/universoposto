@@ -1,7 +1,8 @@
-interface ICategoria {
-  id: number;
+import IFirebase from "./IFirebase";
+
+interface ICategoria extends IFirebase {
   slug: string;
   titulo: string;
-  data: string;
 }
+
 export default ICategoria;
