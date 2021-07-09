@@ -60,7 +60,6 @@ export default class MyDocument extends Document {
             href="/favicon/favicon-16x16.png"
           />
           <link rel="manifest" href="/site.webmanifest" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="msapplication-TileColor" content="#375C9E" />
           <meta name="theme-color" content="#ffffff"></meta>
         </Head>

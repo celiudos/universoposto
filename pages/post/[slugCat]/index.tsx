@@ -111,6 +111,22 @@ type Params = {
 export async function getStaticProps({ params }: Params) {
   const fb = new FirestoreApi();
 
+  const tamanhoIdFirebase = 20;
+
+  if (
+    typeof params.slugCat === "string" &&
+    params.slugCat.length === tamanhoIdFirebase
+  ) {
+    const post = (await fb.getDoc("posts", params.slugCat)) as IPost;
+
+    return {
+      redirect: {
+        permanent: false,
+        destination: `/post/${post._catId.slug}/${post.slug}`,
+      },
+    };
+  }
+
   const categoria = (await fb.getDocBySlug(
     "categorias",
     params.slugCat

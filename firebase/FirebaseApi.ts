@@ -38,15 +38,24 @@ export default class FirestoreApi {
     });
   }
 
-  async getDoc(colecao: string, id: string): Promise<{}> {
+  async getDoc(
+    colecao: string,
+    id: string,
+    keysToMerge = ["imgExibicao", "galeria", "catId"]
+  ): Promise<{}> {
     return new Promise<{}>((resolve, reject) => {
       let docRef = this.firebase.firestore().collection(colecao).doc(id);
 
       docRef
         .get()
-        .then((doc) => {
+        .then(async (doc) => {
           if (doc.exists) {
-            resolve(this.ajustarCorpoJson(doc));
+            let dadosMergeados = await this.formatarDadosJson(
+              [doc],
+              keysToMerge
+            );
+
+            resolve(dadosMergeados[0]);
           } else {
             // doc.data() will be undefined in this case
             reject({ error: "No such document!" });
@@ -123,7 +132,9 @@ export default class FirestoreApi {
   //========== PRIVATE
 
   private async formatarDadosJson(
-    querySnapshot: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>,
+    querySnapshot:
+      | firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
+      | firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>[],
     keysToMerge: string[]
   ) {
     let dados: {}[] = [];
