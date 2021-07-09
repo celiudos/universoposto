@@ -53,14 +53,15 @@ export default class FirestoreApi {
     });
   }
 
-  async getPostDestaque(
+  async getPosts(
+    isDestaque: boolean = false,
     keysToMerge: string[] = ["imgExibicao", "galeria", "catId"]
-  ): Promise<{}> {
-    return new Promise<{}>((resolve, reject) => {
+  ): Promise<{}[]> {
+    return new Promise<{}[]>((resolve, reject) => {
       var docRef = this.firebase
         .firestore()
         .collection("posts")
-        .where("isDestaque", "==", true);
+        .where("isDestaque", "==", isDestaque);
 
       docRef
         .get()
@@ -71,8 +72,17 @@ export default class FirestoreApi {
             dados.push(this.ajustarCorpoJson(doc) as IPost);
           });
 
-          const dado = await this.mergeCollections(keysToMerge, dados[0]);
-          resolve(dado);
+          let dadosMergeados: IPost[] = [];
+
+          for await (const dado of dados) {
+            const mergeado = (await this.mergeCollections(
+              keysToMerge,
+              dado
+            )) as IPost;
+            dadosMergeados.push(mergeado);
+          }
+
+          resolve(dadosMergeados);
         })
         .catch((error) => {
           reject({ msg: `Error getting document`, error });
@@ -82,7 +92,7 @@ export default class FirestoreApi {
 
   private async mergeCollections(
     keysToMerge: string[],
-    dado: { [keysToMerge: string]: any }
+    dado: { [key: string]: any }
   ): Promise<{}> {
     if (keysToMerge.length && dado) {
       for await (const campo of keysToMerge) {
@@ -114,28 +124,6 @@ export default class FirestoreApi {
     }
     return dado;
   }
-
-  // async getPostsComCategoria(colecao: string, slug: string): Promise<{}> {
-  //   return new Promise<{}>((resolve, reject) => {
-  //     var docRef = this.firebase
-  //       .firestore()
-  //       .collection(colecao)
-  //       .where("slug", "==", slug);
-
-  //     docRef
-  //       .get()
-  //       .then((querySnapshot) => {
-  //         let dados = {};
-  //         querySnapshot.forEach((doc) => {
-  //           dados = this.ajustarCorpoJson(doc);
-  //         });
-  //         resolve(dados);
-  //       })
-  //       .catch((error) => {
-  //         reject({ error: `Error getting document: + ${error}` });
-  //       });
-  //   });
-  // }
 
   async getDocBySlug(colecao: string, slug: string): Promise<{}> {
     return new Promise<{}>((resolve, reject) => {

@@ -14,7 +14,7 @@ export default function Home({
   postsSubdestaque,
   postsSidebar,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  console.log("postDestaque:", postDestaque);
+  // console.log("postDestaque:", postDestaque);
 
   return (
     <Layout>
@@ -74,21 +74,18 @@ const ColSidebarCss = styled(Col)`
 `;
 
 export const getStaticProps = async () => {
-  // const categorias = categoriasMock as ICategoria[];
-  // const posts = posts.map((p) => ({
-  //   ...p,
-  //   cat: categorias.filter((c) => c.id === p.catId)[0],
-  // })) as IPost[];
-
   const fb = new FirestoreApi();
-  const postDestaque = (await fb.getPostDestaque()) as IPost;
-  // const posts = (await fb.getCollection("posts")) as IPost[];
+  const postDestaques = (await fb.getPosts(true)) as IPost[];
+  const postDestaque = postDestaques[0];
+  const postsSubdestaque = postDestaques.slice(1);
+
+  const postsSidebar = (await fb.getPosts()) as IPost[];
 
   return {
     props: {
-      postDestaque,
-      postsSubdestaque: [postDestaque],
-      postsSidebar: [postDestaque],
+      postDestaque: postDestaques[0],
+      postsSubdestaque: postsSubdestaque,
+      postsSidebar: postsSidebar,
     },
   };
 };

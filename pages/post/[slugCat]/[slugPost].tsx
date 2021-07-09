@@ -1,13 +1,11 @@
 import { HomeOutlined } from "@ant-design/icons";
 import Layout from "@components/Layout";
-import categoriasMock from "@data/categorias.json";
-import ICategoria from "@data/ICategoria";
 import IPost from "@data/IPost";
-import postsMock from "@data/posts.json";
 import Container from "@styles/Container";
 import { Breadcrumb, Space, Spin } from "antd";
 import Text from "antd/lib/typography/Text";
 import Title from "antd/lib/typography/Title";
+import FirestoreApi from "firebase/FirebaseApi";
 import { useRouter } from "next/dist/client/router";
 import DateUtils from "utils/DateUtils";
 
@@ -35,8 +33,8 @@ export default function Post({ post }: Props) {
             <Breadcrumb.Item href="/">
               <HomeOutlined />
             </Breadcrumb.Item>
-            <Breadcrumb.Item href={`/post/${post.cat?.slug}`}>
-              <span>{post.cat?.titulo}</span>
+            <Breadcrumb.Item href={`/post/${post._catId?.slug}`}>
+              <span>{post._catId?.titulo}</span>
             </Breadcrumb.Item>
             <Breadcrumb.Item>Publicação</Breadcrumb.Item>
           </Breadcrumb>
@@ -44,7 +42,7 @@ export default function Post({ post }: Props) {
           <Title>{post.titulo}</Title>
           <Text type="secondary">{post.resumo}</Text>
           <div>
-            <Text>{DateUtils.formatarDataUX({ data: post.data })}</Text>
+            <Text>{DateUtils.formatarDataUX({ data: post.updatedAt })}</Text>
           </div>
           <hr />
           <Text>
@@ -74,11 +72,8 @@ type Params = {
 };
 
 export async function getStaticProps({ params }: Params) {
-  const categorias = categoriasMock as ICategoria[];
-
-  let post = postsMock.filter((p) => p.slug === params.slugPost)[0] as IPost;
-
-  post = { ...post, cat: categorias.filter((c) => c.id === post.catId)[0] };
+  const fb = new FirestoreApi();
+  let post = (await fb.getDocBySlug("posts", params.slugPost)) as IPost;
 
   return {
     props: { post },

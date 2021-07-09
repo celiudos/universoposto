@@ -72,7 +72,6 @@ type Params = {
 export const getStaticProps = async ({ params }: Params) => {
   const fb = new FirestoreApi();
   let pagina = (await fb.getDocBySlug("paginas", params.slugPage)) as IPagina;
-  // let pagina = (await fb.getDoc("paginas", "OKnlSx4YwZahFTCJMQrc")) as IPagina;
 
   return {
     props: { pagina },

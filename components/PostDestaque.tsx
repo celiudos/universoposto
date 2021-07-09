@@ -1,4 +1,5 @@
 import IPost from "@data/IPost";
+import CoresCategorias from "@styles/CoresCategorias";
 import Text from "antd/lib/typography/Text";
 import Title from "antd/lib/typography/Title";
 import Image from "next/image";
@@ -19,18 +20,20 @@ export default function PostDestaque({ post }: Props): JSX.Element {
         <LinkPostECat catSlug={post._catId?.slug} postSlug={post.slug}>
           <ImgCss>
             <Image
-              layout="fixed"
-              src={imgExibicao?.[0].url.md}
+              layout="fill"
+              src={imgExibicao?.[0].url.sm}
               alt={post.titulo}
-              height={300}
-              width={400}
             />
           </ImgCss>
         </LinkPostECat>
       )}
       <ConteudoCss>
         <LinkPostECat catSlug={post._catId?.slug}>
-          <Text type="secondary">{post._catId?.titulo}</Text>
+          <Text type="secondary" strong>
+            <CoresCategorias catId={post._catId.id}>
+              {post._catId?.titulo}
+            </CoresCategorias>
+          </Text>
         </LinkPostECat>
 
         <LinkPostECat catSlug={post._catId?.slug} postSlug={post.slug}>
@@ -49,6 +52,10 @@ const PostDestaqueCss = styled.div`
 
 const ImgCss = styled.div`
   width: 400px;
+  height: 250px;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
 `;
 
 const ConteudoCss = styled.div`

@@ -16,9 +16,9 @@ function initFirebase(): typeof firebase {
   if (!firebase.apps.length) {
     firebase.initializeApp(clientCredentials);
     firebase.firestore();
-    console.log("FIREBASE_APP INIT");
+    // console.log("FIREBASE_APP INIT");
   } else {
-    console.log("JA INICIADO FIREBASE_APP");
+    // console.log("JA INICIADO FIREBASE_APP");
   }
 
   return firebase;
