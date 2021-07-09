@@ -1,4 +1,5 @@
 import Layout from "@components/Layout";
+import NextSeoHeader from "@components/NextSeoHeader";
 import PostDestaque from "@components/PostDestaque";
 import PostVertical from "@components/PostVertical";
 import IPost from "@data/IPost";
@@ -18,6 +19,7 @@ export default function Home({
 
   return (
     <Layout>
+      <NextSeoHeader />
       <Container>
         <RowCorpoCss gutter={24}>
           <Col span={17}>

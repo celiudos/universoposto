@@ -5,6 +5,7 @@ import Title from "antd/lib/typography/Title";
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
+import ImgContainerCss from "./ImgContainerCss";
 import LinkPostECat from "./LinkPostECat";
 
 type Props = {
@@ -18,13 +19,13 @@ export default function PostDestaque({ post }: Props): JSX.Element {
     <PostDestaqueCss>
       {imgExibicao && (
         <LinkPostECat catSlug={post._catId?.slug} postSlug={post.slug}>
-          <ImgCss>
+          <ImgContainerCss style={{ width: 400, height: 250 }}>
             <Image
               layout="fill"
               src={imgExibicao?.[0].url.sm}
               alt={post.titulo}
             />
-          </ImgCss>
+          </ImgContainerCss>
         </LinkPostECat>
       )}
       <ConteudoCss>
@@ -47,15 +48,6 @@ export default function PostDestaque({ post }: Props): JSX.Element {
 
 const PostDestaqueCss = styled.div`
   display: flex;
-  /* width: 800px; */
-`;
-
-const ImgCss = styled.div`
-  width: 400px;
-  height: 250px;
-  border-radius: 5px;
-  overflow: hidden;
-  position: relative;
 `;
 
 const ConteudoCss = styled.div`

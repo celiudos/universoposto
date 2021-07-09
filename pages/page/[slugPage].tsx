@@ -1,5 +1,6 @@
 import { HomeOutlined } from "@ant-design/icons";
 import Layout from "@components/Layout";
+import NextSeoHeader from "@components/NextSeoHeader";
 import IPagina from "@data/IPagina";
 import Container from "@styles/Container";
 import { Breadcrumb, Space, Spin } from "antd";
@@ -29,6 +30,7 @@ export default function Pagina({ pagina }: Props) {
 
   return (
     <Layout>
+      <NextSeoHeader title={pagina?.titulo} description="Página" />
       <Container>
         <Space size="small" direction="vertical">
           <Breadcrumb>

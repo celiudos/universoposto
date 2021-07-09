@@ -1,6 +1,7 @@
 import { HomeOutlined } from "@ant-design/icons";
 import Layout from "@components/Layout";
 import LinkPostECat from "@components/LinkPostECat";
+import NextSeoHeader from "@components/NextSeoHeader";
 import ICategoria from "@data/ICategoria";
 import IPost from "@data/IPost";
 import Container from "@styles/Container";
@@ -31,6 +32,7 @@ export default function Categoria({ categoria, posts }: Props) {
 
   return (
     <Layout>
+      <NextSeoHeader title={categoria.titulo} description={"Categoria"} />
       <Container>
         <Space size="small" direction="vertical">
           <Breadcrumb>
