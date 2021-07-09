@@ -1,15 +1,15 @@
 import { HomeOutlined } from "@ant-design/icons";
 import Layout from "@components/Layout";
 import LinkPostECat from "@components/LinkPostECat";
-import categoriasMock from "@data/categorias.json";
 import ICategoria from "@data/ICategoria";
 import IPost from "@data/IPost";
-import postsMock from "@data/posts.json";
 import Container from "@styles/Container";
+import CoresCategorias from "@styles/CoresCategorias";
 import { Breadcrumb, List, Space, Spin } from "antd";
 import Avatar from "antd/lib/avatar/avatar";
 import Text from "antd/lib/typography/Text";
 import Title from "antd/lib/typography/Title";
+import FirestoreApi from "firebase/FirebaseApi";
 import { useRouter } from "next/dist/client/router";
 
 type Props = {
@@ -40,7 +40,11 @@ export default function Categoria({ categoria, posts }: Props) {
             <Breadcrumb.Item>Categoria</Breadcrumb.Item>
           </Breadcrumb>
 
-          <Title>{categoria.titulo}</Title>
+          <Title>
+            <CoresCategorias catId={categoria.id}>
+              {categoria.titulo}
+            </CoresCategorias>
+          </Title>
         </Space>
         <hr />
 
@@ -57,22 +61,27 @@ export default function Categoria({ categoria, posts }: Props) {
             <List.Item>
               <List.Item.Meta
                 avatar={
-                  <LinkPostECat catSlug={post.cat?.slug} postSlug={post.slug}>
+                  <LinkPostECat
+                    catSlug={post._catId?.slug}
+                    postSlug={post.slug}
+                  >
                     <Avatar src={"/img/img1.png"} />
                   </LinkPostECat>
                 }
                 title={
-                  <LinkPostECat catSlug={post.cat?.slug} postSlug={post.slug}>
-                    <a>
-                      <Text>{post.titulo}</Text>
-                    </a>
+                  <LinkPostECat
+                    catSlug={post._catId?.slug}
+                    postSlug={post.slug}
+                  >
+                    <Text>{post.titulo}</Text>
                   </LinkPostECat>
                 }
                 description={
-                  <LinkPostECat catSlug={post.cat?.slug} postSlug={post.slug}>
-                    <a>
-                      <Text>{post.resumo}</Text>
-                    </a>
+                  <LinkPostECat
+                    catSlug={post._catId?.slug}
+                    postSlug={post.slug}
+                  >
+                    <Text>{post.resumo}</Text>
                   </LinkPostECat>
                 }
               />
@@ -98,11 +107,16 @@ type Params = {
 };
 
 export async function getStaticProps({ params }: Params) {
-  const categoria = categoriasMock.filter(
-    (p) => p.slug === params.slugCat
-  )[0] as ICategoria;
+  const fb = new FirestoreApi();
 
-  const posts = postsMock.filter((p) => p.catId === categoria.id) as IPost[];
+  const categoria = (await fb.getDocBySlug(
+    "categorias",
+    params.slugCat
+  )) as ICategoria;
+
+  const posts = (await fb.getPosts({
+    catId: categoria.id,
+  })) as IPost[];
 
   return {
     props: { categoria, posts },

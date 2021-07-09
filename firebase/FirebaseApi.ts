@@ -1,11 +1,16 @@
 import IArquivo from "@data/IArquivo";
 import ICategoria from "@data/ICategoria";
 import { TFirebaseId } from "@data/IFirebase";
-import IPost from "@data/IPost";
 import DateUtils from "@utils/DateUtils";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import initFirebase from "./firebaseInit";
+
+type TGetPosts = {
+  catId?: TFirebaseId | false;
+  isDestaque?: boolean;
+  keysToMerge?: string[];
+};
 
 export default class FirestoreApi {
   firebase;
@@ -35,7 +40,7 @@ export default class FirestoreApi {
 
   async getDoc(colecao: string, id: string): Promise<{}> {
     return new Promise<{}>((resolve, reject) => {
-      var docRef = this.firebase.firestore().collection(colecao).doc(id);
+      let docRef = this.firebase.firestore().collection(colecao).doc(id);
 
       docRef
         .get()
@@ -53,34 +58,32 @@ export default class FirestoreApi {
     });
   }
 
-  async getPosts(
-    isDestaque: boolean = false,
-    keysToMerge: string[] = ["imgExibicao", "galeria", "catId"]
-  ): Promise<{}[]> {
+  async getPosts({
+    catId,
+    isDestaque,
+    keysToMerge = ["imgExibicao", "galeria", "catId"],
+  }: TGetPosts): Promise<{}[]> {
     return new Promise<{}[]>((resolve, reject) => {
-      var docRef = this.firebase
-        .firestore()
-        .collection("posts")
-        .where("isDestaque", "==", isDestaque);
+      const firestore = this.firebase.firestore();
+      let docRef;
+
+      if (isDestaque !== undefined) {
+        docRef = firestore
+          .collection("posts")
+          .where("isDestaque", "==", isDestaque);
+      } else if (catId !== undefined) {
+        docRef = firestore.collection("posts").where("catId", "==", catId);
+      } else {
+        docRef = firestore.collection("posts");
+      }
 
       docRef
         .get()
         .then(async (querySnapshot) => {
-          let dados: IPost[] = [];
-
-          querySnapshot.forEach((doc) => {
-            dados.push(this.ajustarCorpoJson(doc) as IPost);
-          });
-
-          let dadosMergeados: IPost[] = [];
-
-          for await (const dado of dados) {
-            const mergeado = (await this.mergeCollections(
-              keysToMerge,
-              dado
-            )) as IPost;
-            dadosMergeados.push(mergeado);
-          }
+          let dadosMergeados = await this.formatarDadosJson(
+            querySnapshot,
+            keysToMerge
+          );
 
           resolve(dadosMergeados);
         })
@@ -88,6 +91,54 @@ export default class FirestoreApi {
           reject({ msg: `Error getting document`, error });
         });
     });
+  }
+
+  async getDocBySlug(
+    colecao: string,
+    slug: string,
+    keysToMerge: string[] = ["imgExibicao", "galeria", "catId"]
+  ): Promise<{}> {
+    return new Promise<{}>((resolve, reject) => {
+      let docRef = this.firebase
+        .firestore()
+        .collection(colecao)
+        .where("slug", "==", slug);
+
+      docRef
+        .get()
+        .then(async (querySnapshot) => {
+          let dadosMergeados = await this.formatarDadosJson(
+            querySnapshot,
+            keysToMerge
+          );
+
+          resolve(dadosMergeados[0]);
+        })
+        .catch((error) => {
+          reject({ error: `Error getting document: + ${error}` });
+        });
+    });
+  }
+
+  //========== PRIVATE
+
+  private async formatarDadosJson(
+    querySnapshot: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>,
+    keysToMerge: string[]
+  ) {
+    let dados: {}[] = [];
+
+    querySnapshot.forEach((doc) => {
+      dados.push(this.ajustarCorpoJson(doc));
+    });
+
+    let dadosMergeados = [];
+
+    for await (const dado of dados) {
+      const mergeado = await this.mergeCollections(keysToMerge, dado);
+      dadosMergeados.push(mergeado);
+    }
+    return dadosMergeados;
   }
 
   private async mergeCollections(
@@ -123,30 +174,6 @@ export default class FirestoreApi {
       }
     }
     return dado;
-  }
-
-  async getDocBySlug(colecao: string, slug: string): Promise<{}> {
-    return new Promise<{}>((resolve, reject) => {
-      var docRef = this.firebase
-        .firestore()
-        .collection(colecao)
-        .where("slug", "==", slug);
-
-      docRef
-        .get()
-        .then((querySnapshot) => {
-          let dados = {};
-
-          querySnapshot.forEach((doc) => {
-            dados = this.ajustarCorpoJson(doc);
-          });
-
-          resolve(dados);
-        })
-        .catch((error) => {
-          reject({ error: `Error getting document: + ${error}` });
-        });
-    });
   }
 
   private ajustarCorpoJson(

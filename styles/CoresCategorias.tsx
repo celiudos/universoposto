@@ -4,19 +4,19 @@ import styled from "styled-components";
 const categoriasCores: ICoresCategorias = {
   "183sUJNy8t1wflwRpNEw": {
     nome: "satira",
-    cor: "blue",
+    cor: "#2196f3",
   },
   KE5p1E8Z8kgQgfcn3dMu: {
     nome: "famosos",
-    cor: "orange",
+    cor: "#ff9800",
   },
   b6Gu76GyRF2thsEgQHqC: {
     nome: "esporte",
-    cor: "green",
+    cor: "#4caf50",
   },
   jigBFegZEWvmUYR01l2a: {
     nome: "politica",
-    cor: "red",
+    cor: "#f44336",
   },
 };
 

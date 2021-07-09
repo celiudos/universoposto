@@ -40,7 +40,9 @@ export default function Post({ post }: Props) {
           </Breadcrumb>
 
           <Title>{post.titulo}</Title>
-          <Text type="secondary">{post.resumo}</Text>
+          <Title type="secondary" level={5}>
+            {post.resumo}
+          </Title>
           <div>
             <Text>{DateUtils.formatarDataUX({ data: post.updatedAt })}</Text>
           </div>

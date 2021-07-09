@@ -75,15 +75,15 @@ const ColSidebarCss = styled(Col)`
 
 export const getStaticProps = async () => {
   const fb = new FirestoreApi();
-  const postDestaques = (await fb.getPosts(true)) as IPost[];
+  const postDestaques = (await fb.getPosts({ isDestaque: true })) as IPost[];
   const postDestaque = postDestaques[0];
   const postsSubdestaque = postDestaques.slice(1);
 
-  const postsSidebar = (await fb.getPosts()) as IPost[];
+  const postsSidebar = (await fb.getPosts({ isDestaque: false })) as IPost[];
 
   return {
     props: {
-      postDestaque: postDestaques[0],
+      postDestaque,
       postsSubdestaque: postsSubdestaque,
       postsSidebar: postsSidebar,
     },
