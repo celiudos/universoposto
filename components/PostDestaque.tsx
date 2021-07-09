@@ -19,13 +19,13 @@ export default function PostDestaque({ post }: Props): JSX.Element {
     <PostDestaqueCss>
       {imgExibicao && (
         <LinkPostECat catSlug={post._catId?.slug} postSlug={post.slug}>
-          <ImgContainerCss style={{ width: 400, height: 250 }}>
+          <ImgContainerDestaqueCss>
             <Image
               layout="fill"
               src={imgExibicao?.[0].url.sm}
               alt={post.titulo}
             />
-          </ImgContainerCss>
+          </ImgContainerDestaqueCss>
         </LinkPostECat>
       )}
       <ConteudoCss>
@@ -48,8 +48,27 @@ export default function PostDestaque({ post }: Props): JSX.Element {
 
 const PostDestaqueCss = styled.div`
   display: flex;
+
+  @media only screen and (max-width: 900px) {
+    display: inherit;
+  }
+`;
+
+const ImgContainerDestaqueCss = styled(ImgContainerCss)`
+  width: 400px;
+  height: 250px;
+
+  @media only screen and (max-width: 900px) {
+    margin: 0 auto;
+    width: 300px;
+    height: 179px;
+  }
 `;
 
 const ConteudoCss = styled.div`
   padding: 0 0 0 30px;
+
+  @media only screen and (max-width: 900px) {
+    padding: 0;
+  }
 `;

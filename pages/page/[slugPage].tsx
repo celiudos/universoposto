@@ -45,6 +45,7 @@ export default function Pagina({ pagina }: Props) {
             <Text>{DateUtils.formatarDataUX({ data: pagina.updatedAt })}</Text>
           </div>
           <hr />
+
           <Text>
             <div
               dangerouslySetInnerHTML={{

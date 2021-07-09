@@ -1,4 +1,5 @@
 import { HomeOutlined } from "@ant-design/icons";
+import ImgContainerCss from "@components/ImgContainerCss";
 import Layout from "@components/Layout";
 import LinkPostECat from "@components/LinkPostECat";
 import NextSeoHeader from "@components/NextSeoHeader";
@@ -7,11 +8,11 @@ import IPost from "@data/IPost";
 import Container from "@styles/Container";
 import CoresCategorias from "@styles/CoresCategorias";
 import { Breadcrumb, List, Space, Spin } from "antd";
-import Avatar from "antd/lib/avatar/avatar";
 import Text from "antd/lib/typography/Text";
 import Title from "antd/lib/typography/Title";
 import FirestoreApi from "firebase/FirebaseApi";
 import { useRouter } from "next/dist/client/router";
+import Image from "next/image";
 
 type Props = {
   categoria: ICategoria;
@@ -52,6 +53,7 @@ export default function Categoria({ categoria, posts }: Props) {
 
         <List
           itemLayout="horizontal"
+          size="large"
           dataSource={posts}
           pagination={{
             onChange: (page) => {
@@ -63,12 +65,20 @@ export default function Categoria({ categoria, posts }: Props) {
             <List.Item>
               <List.Item.Meta
                 avatar={
-                  <LinkPostECat
-                    catSlug={post._catId?.slug}
-                    postSlug={post.slug}
-                  >
-                    <Avatar src={"/img/img1.png"} />
-                  </LinkPostECat>
+                  post._imgExibicao ? (
+                    <LinkPostECat
+                      catSlug={post._catId?.slug}
+                      postSlug={post.slug}
+                    >
+                      <ImgContainerCss style={{ width: 120, height: 80 }}>
+                        <Image
+                          layout="fill"
+                          src={post._imgExibicao?.[0].url.sm}
+                          alt={post.titulo}
+                        />
+                      </ImgContainerCss>
+                    </LinkPostECat>
+                  ) : null
                 }
                 title={
                   <LinkPostECat

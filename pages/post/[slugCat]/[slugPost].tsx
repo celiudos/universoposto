@@ -60,12 +60,15 @@ export default function Post({ post }: Props) {
 
           {imgExibicao && (
             <ImgContainerCss
-              style={{ width: 600, height: 400, margin: "auto" }}
+              style={{ maxWidth: 600, maxHeight: 400, margin: "0 auto" }}
             >
               <Image
-                layout="fill"
+                layout="responsive"
+                objectFit="contain"
                 src={imgExibicao?.[0].url.md}
                 alt={post.titulo}
+                width={200}
+                height={100}
               />
             </ImgContainerCss>
           )}

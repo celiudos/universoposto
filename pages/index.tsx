@@ -15,14 +15,12 @@ export default function Home({
   postsSubdestaque,
   postsSidebar,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  // console.log("postDestaque:", postDestaque);
-
   return (
     <Layout>
       <NextSeoHeader />
       <Container>
-        <RowCorpoCss gutter={24}>
-          <Col span={17}>
+        <RowCorpoCss gutter={[{ lg: 32 }, 16]}>
+          <Col xs={24} xl={17}>
             <Row>
               <Col>
                 <PostDestaque post={postDestaque} />
@@ -31,26 +29,26 @@ export default function Home({
             <RowSubdestaqueCss>
               {postsSubdestaque
                 ? postsSubdestaque.map((post, key) => (
-                    <Col key={key} span={12}>
-                      <PostVertical post={post} />
+                    <Col key={key} xs={24} xl={12}>
+                      <PostVertical grande={true} post={post} />
                     </Col>
                   ))
                 : null}
             </RowSubdestaqueCss>
             <Row>
-              <Col span={24}>
+              <Col xs={0} xl={24}>
                 <Ad style={{ height: 100 }} />
               </Col>
             </Row>
           </Col>
-          <ColSidebarCss span={7}>
-            <Row justify="end">
-              <Col>
+          <ColSidebarCss xs={24} xl={7}>
+            <Row>
+              <Col xs={24} sm={0} xl={24}>
                 <Ad style={{ height: 300, width: 300, marginBottom: 20 }} />
               </Col>
               {postsSidebar
                 ? postsSidebar.map((post, key) => (
-                    <Col key={key}>
+                    <Col xs={24} key={key}>
                       <PostVertical post={post} />
                     </Col>
                   ))
@@ -71,10 +69,18 @@ const RowSubdestaqueCss = styled(Row)`
   border-top: 1px solid #ccc;
   margin: 20px 0 0 0;
   padding: 20px 0 0 0;
+
+  /* @media only screen and (max-width: 1250px) {
+    border-top: none;
+  } */
 `;
 
 const ColSidebarCss = styled(Col)`
   border-left: 1px solid #ccc;
+
+  @media only screen and (max-width: 1250px) {
+    border-left: none;
+  }
 `;
 
 export const getStaticProps = async () => {

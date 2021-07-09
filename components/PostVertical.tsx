@@ -9,18 +9,20 @@ import ImgContainerCss from "./ImgContainerCss";
 import LinkPostECat from "./LinkPostECat";
 
 type Props = {
-  comImg?: boolean;
+  grande?: boolean;
   post: IPost;
 };
 
-export default function PostVertical({ comImg, post }: Props): JSX.Element {
+export default function PostVertical({ grande, post }: Props): JSX.Element {
   const imgExibicao = post._imgExibicao;
 
   return (
-    <PostVerticalCss>
+    <PostVerticalCss grande={grande || false}>
       {imgExibicao && (
         <LinkPostECat catSlug={post._catId?.slug} postSlug={post.slug}>
-          <ImgContainerCss style={{ width: 300, height: 150 }}>
+          <ImgContainerCss
+            style={{ width: grande ? 400 : 300, height: grande ? 200 : 150 }}
+          >
             <Image
               layout="fill"
               src={imgExibicao?.[0].url.sm}
@@ -46,10 +48,11 @@ export default function PostVertical({ comImg, post }: Props): JSX.Element {
 }
 
 const PostVerticalCss = styled.div`
-  width: 300px;
+  width: ${(props: { grande: boolean }) => (props.grande ? "400px" : "300px")};
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  margin: 0 auto;
 `;
 
 const ConteudoCss = styled.div`

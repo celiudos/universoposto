@@ -13,7 +13,12 @@ export default function Logo(): JSX.Element {
     <Link href={"/"} passHref>
       <a>
         <LogoCss>
-          <Image src={LogoImg} alt={titulo} />
+          <Image
+            layout="responsive"
+            objectFit="contain"
+            src={LogoImg}
+            alt={titulo}
+          />
           <Text>
             <em className="subtitulo">{subtitulo}</em>
           </Text>
