@@ -1,4 +1,5 @@
 import { useStore } from "@store/storeConfig";
+import "@styles/global.css";
 import "antd/dist/antd.css";
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";

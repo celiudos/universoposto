@@ -43,6 +43,9 @@ export default function Home({
           </Col>
           <ColSidebarCss span={7}>
             <Row justify="end">
+              <Col>
+                <Ad style={{ height: 300, width: 300, marginBottom: 20 }} />
+              </Col>
               {postsSidebar
                 ? postsSidebar.map((post, key) => (
                     <Col key={key}>
@@ -50,7 +53,6 @@ export default function Home({
                     </Col>
                   ))
                 : null}
-              <Ad />
             </Row>
           </ColSidebarCss>
         </RowCorpoCss>
