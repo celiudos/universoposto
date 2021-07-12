@@ -89,6 +89,12 @@ export default class FirestoreApi {
 
       whereMultiplo.push(["isAtivo", "==", isAtivo]);
       whereMultiplo.push(["publicacao", "<", new Date()]);
+      // whereMultiplo.push([
+      //   "publicacao",
+      //   "<",
+      //   this.firebase?.firebase_?.firestore?.FieldValue.serverTimestamp(),
+      // ]);
+
       // console.log("whereMultiplo:", whereMultiplo);
 
       if (whereMultiplo.length) {
