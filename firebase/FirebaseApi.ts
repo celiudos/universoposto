@@ -8,6 +8,7 @@ import initFirebase from "./firebaseInit";
 
 type TGetPosts = {
   catId?: TFirebaseId | false;
+  isAtivo?: boolean;
   isDestaque?: boolean;
   keysToMerge?: string[];
 };
@@ -69,22 +70,24 @@ export default class FirestoreApi {
 
   async getPosts({
     catId,
+    isAtivo = true,
     isDestaque,
     keysToMerge = ["imgExibicao", "galeria", "catId"],
   }: TGetPosts): Promise<{}[]> {
     return new Promise<{}[]>((resolve, reject) => {
-      const firestore = this.firebase.firestore();
       let docRef;
+      let whereMultiplo: [any, any, any][] = [];
 
-      if (isDestaque !== undefined) {
-        docRef = firestore
-          .collection("posts")
-          .where("isDestaque", "==", isDestaque);
-      } else if (catId !== undefined) {
-        docRef = firestore.collection("posts").where("catId", "==", catId);
-      } else {
-        docRef = firestore.collection("posts");
-      }
+      if (isDestaque !== undefined)
+        whereMultiplo.push(["isDestaque", "==", isDestaque]);
+      if (catId !== undefined) whereMultiplo.push(["catId", "==", catId]);
+      if (isAtivo !== undefined) whereMultiplo.push(["isAtivo", "==", isAtivo]);
+
+      if (whereMultiplo.length)
+        docRef = this.lerDocsComParamsAgrupados("posts", {
+          whereMultiplo,
+        });
+      else docRef = this.lerDocsComParamsAgrupados("posts", {});
 
       docRef
         .get()
@@ -100,6 +103,44 @@ export default class FirestoreApi {
           reject({ msg: `Error getting document`, error });
         });
     });
+  }
+
+  //https://stackoverflow.com/questions/48036975/firestore-multiple-conditional-where-clauses
+  private lerDocsComParamsAgrupados(
+    collection: string,
+    options: {
+      where?: [any, any, any];
+      whereMultiplo?: [any, any, any][];
+      orderBy?: [any, any];
+      limit?: number;
+    }
+  ): firebase.firestore.Query<firebase.firestore.DocumentData> {
+    let { where, whereMultiplo, orderBy, limit } = options;
+    let query = firebase
+      .firestore()
+      .collection(
+        collection
+      ) as firebase.firestore.Query<firebase.firestore.DocumentData>;
+
+    if (whereMultiplo) {
+      for (let w of whereMultiplo) {
+        query = query.where(...w);
+      }
+    }
+
+    if (where) {
+      query = query.where(...where);
+    }
+
+    if (orderBy) {
+      query = query.orderBy(...orderBy);
+    }
+
+    if (limit) {
+      query = query.limit(limit);
+    }
+
+    return query;
   }
 
   async getDocBySlug(

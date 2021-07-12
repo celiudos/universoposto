@@ -15,6 +15,8 @@ export default function Home({
   postsSubdestaque,
   postsSidebar,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  // console.log("postsSidebar:", postsSidebar);
+
   return (
     <Layout>
       <NextSeoHeader />
