@@ -1,6 +1,6 @@
 import IArquivo from "@data/IArquivo";
 import ICategoria from "@data/ICategoria";
-import { TFirebaseId } from "@data/IFirebase";
+import IFirebase, { TFirebaseId } from "@data/IFirebase";
 import DateUtils from "@utils/DateUtils";
 import firebase from "firebase/app";
 import "firebase/firestore";
@@ -9,6 +9,8 @@ import initFirebase from "./firebaseInit";
 type TGetPosts = {
   catId?: TFirebaseId | false;
   isAtivo?: boolean;
+  limit?: number;
+  orderBy?: [any, any];
   isDestaque?: boolean;
   keysToMerge?: string[];
 };
@@ -70,8 +72,10 @@ export default class FirestoreApi {
 
   async getPosts({
     catId,
-    isAtivo = true,
     isDestaque,
+    isAtivo = true,
+    limit = 5,
+    orderBy = ["publicacao", "desc"],
     keysToMerge = ["imgExibicao", "galeria", "catId"],
   }: TGetPosts): Promise<{}[]> {
     return new Promise<{}[]>((resolve, reject) => {
@@ -80,14 +84,25 @@ export default class FirestoreApi {
 
       if (isDestaque !== undefined)
         whereMultiplo.push(["isDestaque", "==", isDestaque]);
-      if (catId !== undefined) whereMultiplo.push(["catId", "==", catId]);
-      if (isAtivo !== undefined) whereMultiplo.push(["isAtivo", "==", isAtivo]);
 
-      if (whereMultiplo.length)
+      if (catId !== undefined) whereMultiplo.push(["catId", "==", catId]);
+
+      whereMultiplo.push(["isAtivo", "==", isAtivo]);
+      whereMultiplo.push(["publicacao", "<", new Date()]);
+      // console.log("whereMultiplo:", whereMultiplo);
+
+      if (whereMultiplo.length) {
         docRef = this.lerDocsComParamsAgrupados("posts", {
           whereMultiplo,
+          limit,
+          orderBy,
         });
-      else docRef = this.lerDocsComParamsAgrupados("posts", {});
+      } else {
+        docRef = this.lerDocsComParamsAgrupados("posts", {
+          limit,
+          orderBy,
+        });
+      }
 
       docRef
         .get()
@@ -100,7 +115,7 @@ export default class FirestoreApi {
           resolve(dadosMergeados);
         })
         .catch((error) => {
-          reject({ msg: `Error getting document`, error });
+          reject({ msg: `Error getPosts`, error });
         });
     });
   }
@@ -234,11 +249,19 @@ export default class FirestoreApi {
       | firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
   ): {} {
     const dadosJson = doc.data();
-    return {
+
+    let resposta = {
       ...dadosJson,
       updatedAt: DateUtils.getDateFirebase(dadosJson?.updatedAt),
       createdAt: DateUtils.getDateFirebase(dadosJson?.createdAt),
       id: doc.id,
-    };
+    } as IFirebase & { publicacao: number };
+
+    const publicacao = dadosJson?.publicacao;
+    if (publicacao) {
+      resposta.publicacao = DateUtils.getDateFirebase(publicacao);
+    }
+
+    return resposta;
   }
 }

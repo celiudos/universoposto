@@ -11,9 +11,11 @@ interface IPost extends IFirebase {
   _galeria?: IArquivo[];
   slug: string;
   isDestaque: boolean;
+  isAtivo: boolean;
   resumo: string;
   titulo: string;
   conteudo: string;
+  publicacao?: number;
 }
 
 export default IPost;

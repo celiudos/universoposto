@@ -15,19 +15,19 @@ export default function Home({
   postsSubdestaque,
   postsSidebar,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  // console.log("postsSidebar:", postsSidebar);
-
   return (
     <Layout>
       <NextSeoHeader />
       <Container>
         <RowCorpoCss gutter={[{ lg: 32 }, 16]}>
           <Col xs={24} xl={17}>
-            <Row>
-              <Col>
-                <PostDestaque post={postDestaque} />
-              </Col>
-            </Row>
+            {postDestaque && (
+              <Row>
+                <Col>
+                  <PostDestaque post={postDestaque} />
+                </Col>
+              </Row>
+            )}
             <RowSubdestaqueCss>
               {postsSubdestaque
                 ? postsSubdestaque.map((post, key) => (
@@ -87,17 +87,30 @@ const ColSidebarCss = styled(Col)`
 
 export const getStaticProps = async () => {
   const fb = new FirestoreApi();
-  const postDestaques = (await fb.getPosts({ isDestaque: true })) as IPost[];
-  const postDestaque = postDestaques[0];
-  const postsSubdestaque = postDestaques.slice(1);
+  let postDestaques,
+    postsSubdestaque,
+    postsSidebar: IPost[] = [];
 
-  const postsSidebar = (await fb.getPosts({ isDestaque: false })) as IPost[];
+  try {
+    postDestaques = (await fb.getPosts({ isDestaque: true })) as IPost[];
+    postsSubdestaque = postDestaques.slice(1);
+  } catch (error) {}
+
+  try {
+    postsSidebar = (await fb.getPosts({ isDestaque: false })) as IPost[];
+  } catch (error) {}
+
+  // console.log("postDestaque:", postDestaque);
 
   return {
     props: {
-      postDestaque,
-      postsSubdestaque: postsSubdestaque,
-      postsSidebar: postsSidebar,
+      postDestaque: postDestaques?.[0] || null,
+      postsSubdestaque: postsSubdestaque || [],
+      postsSidebar: postsSidebar || [],
+      // Next.js will attempt to re-generate the page:
+      // - When a request comes in
+      // - At most once every 10 seconds
+      revalidate: 10, // In seconds
     },
   };
 };
