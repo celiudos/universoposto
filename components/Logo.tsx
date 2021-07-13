@@ -1,6 +1,6 @@
 import ISite from "@data/ISite";
 import siteMock from "@data/site.json";
-import LogoImg from "@public/logo/logo-grande.png";
+import LogoImg from "@public/logo/logo-v2-pequeno.png";
 import Text from "antd/lib/typography/Text";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,10 +14,12 @@ export default function Logo(): JSX.Element {
       <a>
         <LogoCss>
           <Image
-            layout="responsive"
+            layout="fixed"
             objectFit="contain"
             src={LogoImg}
             alt={titulo}
+            width={320}
+            height={50}
           />
           <Text>
             <em className="subtitulo">{subtitulo}</em>

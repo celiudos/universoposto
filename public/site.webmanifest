@@ -1,15 +1,10 @@
 {
   "name": "Universo Oposto",
-  "short_name": "universoposto",
+  "short_name": "universooposto",
   "icons": [
     {
-      "src": "/favicon/android-chrome-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/favicon/android-chrome-384x384.png",
-      "sizes": "384x384",
+      "src": "/favicon/android-chrome-96x96.png",
+      "sizes": "96x96",
       "type": "image/png"
     }
   ],

@@ -44,7 +44,7 @@ export default class MyDocument extends Document {
         <Head>
           <link
             rel="apple-touch-icon"
-            sizes="180x180"
+            sizes="76x76"
             href="/favicon/apple-touch-icon.png"
           />
           <link

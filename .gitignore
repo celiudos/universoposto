@@ -39,3 +39,4 @@ yarn-error.log*
 # outros
 data.tsv
 /data/mock
+/images
