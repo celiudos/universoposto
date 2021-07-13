@@ -20,15 +20,14 @@ export default function PostVertical({ grande, post }: Props): JSX.Element {
     <PostVerticalCss grande={grande || false}>
       {imgExibicao && (
         <LinkPostECat catSlug={post._catId?.slug} postSlug={post.slug}>
-          <ImgContainerCss
-            style={{ width: grande ? 400 : 300, height: grande ? 200 : 150 }}
-          >
+          <ImgContainerDestaqueCss grande={grande || false}>
             <Image
               layout="fill"
+              objectFit="cover"
               src={imgExibicao?.[0].url.sm}
               alt={post.titulo}
             />
-          </ImgContainerCss>
+          </ImgContainerDestaqueCss>
         </LinkPostECat>
       )}
       <ConteudoCss>
@@ -61,6 +60,20 @@ const PostVerticalCss = styled.div`
   flex-direction: column;
   align-items: flex-end;
   margin: 0 auto;
+
+  @media only screen and (max-width: 900px) {
+    width: 300px;
+  }
+`;
+
+const ImgContainerDestaqueCss = styled(ImgContainerCss)`
+  width: ${(props: { grande: boolean }) => (props.grande ? "400px" : "300px")};
+  height: ${(props: { grande: boolean }) => (props.grande ? "200px" : "150px")};
+
+  @media only screen and (max-width: 900px) {
+    width: 300px;
+    height: 150px;
+  }
 `;
 
 const ConteudoCss = styled.div`

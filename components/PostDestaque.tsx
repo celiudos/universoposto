@@ -22,6 +22,7 @@ export default function PostDestaque({ post }: Props): JSX.Element {
           <ImgContainerDestaqueCss>
             <Image
               layout="fill"
+              objectFit="cover"
               src={imgExibicao?.[0].url.sm}
               alt={post.titulo}
             />
@@ -60,7 +61,7 @@ const ImgContainerDestaqueCss = styled(ImgContainerCss)`
 
   @media only screen and (max-width: 900px) {
     margin: 0 auto;
-    width: 300px;
+    width: auto;
     height: 179px;
   }
 `;
