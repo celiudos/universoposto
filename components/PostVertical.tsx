@@ -1,6 +1,5 @@
 import IPost from "@data/IPost";
 import CoresCategorias from "@styles/CoresCategorias";
-import DateUtils from "@utils/DateUtils";
 import Text from "antd/lib/typography/Text";
 import Title from "antd/lib/typography/Title";
 import Image from "next/image";
@@ -40,14 +39,14 @@ export default function PostVertical({ grande, post }: Props): JSX.Element {
             </CoresCategorias>
           </Text>
         </LinkPostECat>
-        <LinkPostECat catSlug={post._catId?.slug} postSlug={post.slug}>
+        {/* <LinkPostECat catSlug={post._catId?.slug} postSlug={post.slug}>
           <Title level={5}>
             {DateUtils.formatarDataUX({
               data: post.publicacao || "",
               formato: "Pp",
             })}
           </Title>
-        </LinkPostECat>
+        </LinkPostECat> */}
         <LinkPostECat catSlug={post._catId?.slug} postSlug={post.slug}>
           <Title level={4}>{post.titulo}</Title>
         </LinkPostECat>

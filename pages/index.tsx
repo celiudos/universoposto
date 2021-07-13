@@ -92,12 +92,18 @@ export const getStaticProps = async () => {
     postsSidebar: IPost[] = [];
 
   try {
-    postDestaques = (await fb.getPosts({ isDestaque: true })) as IPost[];
+    postDestaques = (await fb.getPosts({
+      isDestaque: true,
+      mockFile: "postsDestaques",
+    })) as IPost[];
     postsSubdestaque = postDestaques.slice(1);
   } catch (error) {}
 
   try {
-    postsSidebar = (await fb.getPosts({ isDestaque: false })) as IPost[];
+    postsSidebar = (await fb.getPosts({
+      isDestaque: false,
+      mockFile: "postsSidebar",
+    })) as IPost[];
   } catch (error) {}
 
   // console.log("postDestaque:", postDestaque);

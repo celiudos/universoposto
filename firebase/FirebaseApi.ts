@@ -1,15 +1,25 @@
 import IArquivo from "@data/IArquivo";
 import ICategoria from "@data/ICategoria";
 import IFirebase, { TFirebaseId } from "@data/IFirebase";
+import ISite from "@data/ISite";
+import siteJson from "@data/site.json";
+import postsDestaquesArquivo from "@mock/postsDestaques.json";
+import postsSidebarArquivo from "@mock/postsSidebar.json";
 import DateUtils from "@utils/DateUtils";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import initFirebase from "./firebaseInit";
 
+const arquivosMock = {
+  postsDestaques: postsDestaquesArquivo,
+  postsSidebar: postsSidebarArquivo,
+};
+
 type TGetPosts = {
   catId?: TFirebaseId | false;
   isAtivo?: boolean;
   limit?: number;
+  mockFile?: "postsDestaques" | "postsSidebar";
   orderBy?: [any, any];
   isDestaque?: boolean;
   keysToMerge?: string[];
@@ -17,8 +27,11 @@ type TGetPosts = {
 
 export default class FirestoreApi {
   firebase;
+  isMock;
 
   constructor() {
+    const dadosSiteJson = siteJson as ISite;
+    this.isMock = dadosSiteJson.isMock;
     this.firebase = initFirebase();
   }
 
@@ -71,6 +84,7 @@ export default class FirestoreApi {
   }
 
   async getPosts({
+    mockFile,
     catId,
     isDestaque,
     isAtivo = true,
@@ -78,7 +92,13 @@ export default class FirestoreApi {
     orderBy = ["publicacao", "desc"],
     keysToMerge = ["imgExibicao", "galeria", "catId"],
   }: TGetPosts): Promise<{}[]> {
-    return new Promise<{}[]>((resolve, reject) => {
+    return new Promise<{}[]>(async (resolve, reject) => {
+      if (this.isMock && mockFile) {
+        const jsonMock = arquivosMock[mockFile];
+        resolve(jsonMock);
+        return true;
+      }
+
       let docRef;
       let whereMultiplo: [any, any, any][] = [];
 

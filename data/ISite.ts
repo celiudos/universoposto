@@ -3,6 +3,7 @@ interface ISite {
   titulo: string;
   subtitulo: string;
   email: string;
+  isMock: boolean;
 }
 
 interface ICoresCategorias {

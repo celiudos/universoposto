@@ -4,5 +4,6 @@
   "titulo": "Universo Oposto",
   "subtitulo": "O contrário da verdade",
   "fraseFinal": "Os fatos aqui narrados estão invertidos",
-  "email": "contato@universoposto.com"
+  "email": "contato@universoposto.com",
+  "isMock": true
 }

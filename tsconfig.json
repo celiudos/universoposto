@@ -9,6 +9,7 @@
       "@public/*": ["./public/*"],
       "@data/*": ["./data/*"],
       "@utils/*": ["./utils/*"],
+      "@mock/*": ["./mock/*"],
       "@store/*": ["./store/*"]
     },
     "allowJs": true,
