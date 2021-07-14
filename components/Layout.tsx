@@ -28,5 +28,5 @@ const MainCss = styled.div`
 
 const CorpoCss = styled.section`
   flex: 1;
-  margin: 30px 0;
+  margin: 70px 0;
 `;

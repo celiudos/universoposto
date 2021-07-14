@@ -1,17 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1440px" height="500px" viewBox="0 0 1440 500" version="1.1">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+width="1440px" height="500px" viewBox="0 0 1440 500" version="1.1">
     <title/>
     <defs>
         <linearGradient x1="46.5485594%" y1="104.55521%" x2="65.5651577%" y2="0%" id="linearGradient-1">
             <stop stop-color="#07131b" offset="0%"/>
-            <stop stop-color="#0e2838" offset="43.0834724%"/>
+            <stop stop-color="#194661" offset="43.0834724%"/>
             <stop stop-color="#194661" offset="100%"/>
+        </linearGradient>
+        <linearGradient xmlns="http://www.w3.org/2000/svg" x1="15.1178323%" y1="118.375474%" x2="100%" y2="-3.0920793%" id="linearGradient-2">
+            <stop stop-color="#194661" offset="0%"/>
+            <stop stop-color="#9175c1" offset="100%"/>
         </linearGradient>
     </defs>
     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(0.000000, -550.000000)">
         <g transform="translate(0.000000, 550.000000)">
             <g>
+                <path d="M7.39313883e-07,62 C224.000001,144.666667 464.000001,144.666667 720,62 C976,-20.6666667 1216,-20.6666667 1440,62 L1440,1450 L0,1450 L7.39313883e-07,62 Z" id="Rectangle-20" fill="url(#linearGradient-2)" opacity="0.35" transform="translate(720.000000, 725.000000) scale(-1, 1) translate(-720.000000, -725.000000) "/>
                 <path d="M-9.41433431e-14,62 C224,144.666667 464,144.666667 720,62 C975.999999,-20.6666667 1216,-20.6666667 1440,62 L1440,1450 L-7.39313969e-07,1450 L-9.41433431e-14,62 Z" id="Rectangle-20" fill="url(#linearGradient-1)"/>
-                
                 <circle id="Oval-4" fill="#FFFFFF" opacity="0.4" cx="510" cy="168" r="2"/>
                 <circle id="Oval-4" stroke="#FFFFFF" opacity="0.45" cx="431" cy="193" r="2"/>
                 <circle id="Oval-4" fill="#FFFFFF" opacity="0.4" cx="951" cy="173" r="2"/>

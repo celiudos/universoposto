@@ -11,7 +11,7 @@ export default function Footer(): JSX.Element {
       <Container>
         <Row justify="space-between" align="middle">
           <Col>
-            <Title level={4}>{siteJson.fraseFinal}</Title>
+            <TitleCss level={4}>{siteJson.fraseFinal}</TitleCss>
           </Col>
           <Col>
             <Menu theme="dark">
@@ -31,8 +31,13 @@ export default function Footer(): JSX.Element {
   );
 }
 
+const TitleCss = styled(Title)`
+  color: #a1bfd2 !important;
+`;
+
 const FooterCss = styled.footer`
   padding: 50px;
   margin-top: 50px;
-  background: #eee;
+  border-top: 4px solid #a1bfd2;
+  background: #194560;
 `;

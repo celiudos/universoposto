@@ -21,7 +21,7 @@ const MainCss = styled.div`
   position: relative;
   width: 100%;
   height: 150px;
-  flex: 1 0 auto;
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
