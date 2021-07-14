@@ -36,7 +36,7 @@ const TitleCss = styled(Title)`
 `;
 
 const FooterCss = styled.footer`
-  padding: 50px;
+  padding: 20px;
   margin-top: 50px;
   border-top: 4px solid #a1bfd2;
   background: #194560;

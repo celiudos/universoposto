@@ -49,6 +49,9 @@ export default function PostDestaque({ post }: Props): JSX.Element {
 
 const PostDestaqueCss = styled.div`
   display: flex;
+  border-bottom: 1px solid #ccc;
+  padding: 0 0 20px 0;
+  margin: 0 0 20px 0;
 
   @media only screen and (max-width: 900px) {
     display: inherit;

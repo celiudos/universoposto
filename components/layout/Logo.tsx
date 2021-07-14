@@ -1,18 +1,23 @@
+import Link from "next/link";
 import styled from "styled-components";
 
 export default function LogoNovo() {
   return (
     <MainCss>
-      <TituloContainerCss>
-        <TituloCss>
-          <span className="a">Universo</span>
-          <span className="b">Oposto</span>
-        </TituloCss>
-        <ContainerSetasCss className="animate__animated animate__rotateIn">
-          <Arrow tipo="cima" />
-          <Arrow />
-        </ContainerSetasCss>
-      </TituloContainerCss>
+      <Link href={"/"} passHref>
+        <a>
+          <TituloContainerCss>
+            <TituloCss>
+              <span className="a">Universo</span>
+              <span className="b">Oposto</span>
+            </TituloCss>
+            <ContainerSetasCss className="animate__animated animate__rotateIn">
+              <Arrow tipo="cima" />
+              <Arrow />
+            </ContainerSetasCss>
+          </TituloContainerCss>
+        </a>
+      </Link>
     </MainCss>
   );
 }
@@ -32,6 +37,10 @@ const TituloContainerCss = styled.div`
   height: 60px;
   width: 460px;
   text-align: center;
+
+  @media only screen and (max-width: 900px) {
+    width: 260px;
+  }
 `;
 
 const TituloCss = styled.h1`
@@ -47,6 +56,10 @@ const TituloCss = styled.h1`
   }
   .b {
     -webkit-text-stroke: 2px #3f51b5;
+  }
+
+  @media only screen and (max-width: 900px) {
+    font-size: 30px;
   }
 `;
 
@@ -103,5 +116,15 @@ const ContainerSetasCss = styled.span`
 
   svg.baixo {
     top: 28px;
+  }
+
+  @media only screen and (max-width: 900px) {
+    svg {
+      top: -5px;
+    }
+
+    svg.baixo {
+      top: 20px;
+    }
   }
 `;

@@ -23,4 +23,8 @@ const ImageBgCss = styled.div`
   width: 100%;
   height: 120%;
   background: url(/img/bg.svg) center top;
+
+  @media only screen and (max-width: 900px) {
+    height: 100%;
+  }
 `;

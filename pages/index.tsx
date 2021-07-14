@@ -71,15 +71,7 @@ const RowCorpoCss = styled(Row)`
   margin: 50px 0 0 0;
 `;
 
-const RowSubdestaqueCss = styled(Row)`
-  /* border-top: 1px solid #ccc; */
-  /* margin: 20px 0 0 0;
-  padding: 20px 0 0 0; */
-
-  /* @media only screen and (max-width: 1250px) {
-    border-top: none;
-  } */
-`;
+const RowSubdestaqueCss = styled(Row)``;
 
 const ColSidebarCss = styled(Col)`
   border-left: 1px solid #ccc;

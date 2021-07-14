@@ -9,5 +9,10 @@ const DisplayFlexSpaceBetween = styled(DisplayFlex)`
   align-items: center;
 `;
 
+const DisplayFlexCenter = styled(DisplayFlex)`
+  justify-content: center;
+  align-items: center;
+`;
+
 export default DisplayFlex;
-export { DisplayFlexSpaceBetween };
+export { DisplayFlexSpaceBetween, DisplayFlexCenter };

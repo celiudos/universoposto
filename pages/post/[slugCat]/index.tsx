@@ -2,12 +2,13 @@ import { HomeOutlined } from "@ant-design/icons";
 import ImgContainerCss from "@components/ImgContainerCss";
 import Layout from "@components/Layout";
 import LinkPostECat from "@components/LinkPostECat";
+import Loading from "@components/Loading";
 import NextSeoHeader from "@components/NextSeoHeader";
 import ICategoria from "@data/ICategoria";
 import IPost from "@data/IPost";
 import Container from "@styles/Container";
 import CoresCategorias from "@styles/CoresCategorias";
-import { Breadcrumb, List, Space, Spin } from "antd";
+import { Breadcrumb, List, Space } from "antd";
 import Text from "antd/lib/typography/Text";
 import Title from "antd/lib/typography/Title";
 import FirestoreApi from "firebase/FirebaseApi";
@@ -22,14 +23,7 @@ type Props = {
 export default function Categoria({ categoria, posts }: Props) {
   const router = useRouter();
 
-  if (router.isFallback)
-    return (
-      <Layout>
-        <Container>
-          <Spin />
-        </Container>
-      </Layout>
-    );
+  if (router.isFallback) return <Loading />;
 
   return (
     <Layout>

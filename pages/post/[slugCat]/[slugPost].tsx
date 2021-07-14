@@ -1,15 +1,17 @@
 import { HomeOutlined } from "@ant-design/icons";
 import ImgContainerCss from "@components/ImgContainerCss";
 import Layout from "@components/Layout";
+import Loading from "@components/Loading";
 import NextSeoHeader from "@components/NextSeoHeader";
 import IPost from "@data/IPost";
 import Container from "@styles/Container";
-import { Breadcrumb, Space, Spin } from "antd";
+import { Breadcrumb, Space } from "antd";
 import Text from "antd/lib/typography/Text";
 import Title from "antd/lib/typography/Title";
 import FirestoreApi from "firebase/FirebaseApi";
 import { useRouter } from "next/dist/client/router";
 import Image from "next/image";
+import styled from "styled-components";
 import DateUtils from "utils/DateUtils";
 
 type Props = {
@@ -19,14 +21,7 @@ type Props = {
 export default function Post({ post }: Props) {
   const router = useRouter();
 
-  if (router.isFallback)
-    return (
-      <Layout>
-        <Container>
-          <Spin />
-        </Container>
-      </Layout>
-    );
+  if (router.isFallback) return <Loading />;
 
   const imgExibicao = post._imgExibicao;
 
@@ -58,32 +53,46 @@ export default function Post({ post }: Props) {
           </div>
           <hr />
 
-          {imgExibicao && (
-            <ImgContainerCss
-              style={{ maxWidth: 600, maxHeight: 400, margin: "0 auto" }}
-            >
-              <Image
-                layout="responsive"
-                objectFit="contain"
-                src={imgExibicao?.[0].url.md}
-                alt={post.titulo}
-                width={200}
-                height={100}
-              />
-            </ImgContainerCss>
-          )}
-          <Text>
-            <span
-              dangerouslySetInnerHTML={{
-                __html: post.conteudo,
-              }}
-            ></span>
-          </Text>
+          <div>
+            {imgExibicao && (
+              <ImgContainerPostCss>
+                <Image
+                  layout="responsive"
+                  objectFit="contain"
+                  src={imgExibicao?.[0].url.md}
+                  alt={post.titulo}
+                  width={400}
+                  height={300}
+                />
+              </ImgContainerPostCss>
+            )}
+            <Text>
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: post.conteudo,
+                }}
+              ></span>
+            </Text>
+          </div>
         </Space>
       </Container>
     </Layout>
   );
 }
+
+const ImgContainerPostCss = styled(ImgContainerCss)`
+  float: right;
+  width: 400px;
+  height: 300px;
+  margin-left: 10px;
+
+  @media only screen and (max-width: 900px) {
+    float: none;
+    margin: 10px auto;
+    width: 300px;
+    height: 200px;
+  }
+`;
 
 export async function getStaticPaths() {
   return {

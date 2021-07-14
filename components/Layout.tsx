@@ -12,7 +12,6 @@ export default function Layout({ children }: Props) {
     <MainCss>
       <BgEstrelas />
       <Logo />
-      {/* <Navbar /> */}
       <CorpoCss>{children}</CorpoCss>
       <Footer />
     </MainCss>
@@ -29,4 +28,8 @@ const MainCss = styled.div`
 const CorpoCss = styled.section`
   flex: 1;
   margin: 70px 0;
+
+  @media only screen and (max-width: 900px) {
+    margin: 20px 0;
+  }
 `;

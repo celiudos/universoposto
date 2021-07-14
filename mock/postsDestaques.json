@@ -178,46 +178,46 @@
     }
   },
   {
-    "isDestaque": true,
-    "resumo": "Zagueiro espanhol afirma que clube é \"historicamente o maior clube do mundo\"",
-    "imgExibicao": ["OUwfpiLWZKJsQPPPEECC"],
-    "galeria": [],
-    "updatedBy": "marcelo.anselmo.souza@gmail.com",
-    "createdBy": "marcelo.anselmo.souza@gmail.com",
-    "fonteOriginal": "https://ge.globo.com/futebol/futebol-internacional/noticia/apresentado-no-psg-sergio-ramos-diz-que-mbappe-algum-dia-tera-que-passar-pelo-real-madrid.ghtml",
-    "publicacao": 1626192000000,
-    "createdAt": 1626195556930,
-    "catId": "b6Gu76GyRF2thsEgQHqC",
     "conteudo": "<p>Em sua apresentação oficial como jogador do Flamengo, Sergio Ramos recebeu muitas perguntas sobre seu ex-clube, o Real Madrid.</p>",
     "isAtivo": true,
+    "updatedBy": "marcelo.anselmo.souza@gmail.com",
+    "publicacao": 1626192000000,
+    "updatedAt": 1626300609534,
+    "catId": "b6Gu76GyRF2thsEgQHqC",
+    "resumo": "Zagueiro espanhol afirma que clube é \"historicamente o maior clube do mundo\"",
+    "galeria": [],
+    "createdAt": 1626195556930,
+    "imgExibicao": ["axIPGWKanN4HSugGVS8O"],
+    "createdBy": "marcelo.anselmo.souza@gmail.com",
+    "fonteOriginal": "https://ge.globo.com/futebol/futebol-internacional/noticia/apresentado-no-psg-sergio-ramos-diz-que-mbappe-algum-dia-tera-que-passar-pelo-real-madrid.ghtml",
     "titulo": "Apresentado no Flamengo, Sergio Ramos é a nova aposta internacional",
-    "updatedAt": 1626201317033,
     "slug": "apresentado-no-flamengo-sergio-ramos-e-a-nova-aposta-internacional",
+    "isDestaque": true,
     "id": "QMr6jzfEF4dZR7g8pb8N",
     "_imgExibicao": [
       {
-        "createdBy": "marcelo.anselmo.souza@gmail.com",
-        "updatedAt": 1626195550231,
-        "isImagem": true,
+        "tipo": "image/png",
         "updatedBy": "marcelo.anselmo.souza@gmail.com",
         "name": "image.png",
+        "isImagem": true,
+        "updatedAt": 1626300604340,
         "url": {
-          "xs": "https://firebasestorage.googleapis.com/v0/b/universo-oposto.appspot.com/o/arquivos%2FOUwfpiLWZKJsQPPPEECC%2Fxs?alt=media&token=2c475701-f227-453e-87d7-0b96e57a514c",
-          "md": "https://firebasestorage.googleapis.com/v0/b/universo-oposto.appspot.com/o/arquivos%2FOUwfpiLWZKJsQPPPEECC%2Fmd?alt=media&token=da422cb7-b8d7-4697-8fee-7a3b875471db",
-          "sm": "https://firebasestorage.googleapis.com/v0/b/universo-oposto.appspot.com/o/arquivos%2FOUwfpiLWZKJsQPPPEECC%2Fsm?alt=media&token=6fd81fc5-1084-4eec-b8dd-ac358fce7c2f"
+          "xs": "https://firebasestorage.googleapis.com/v0/b/universo-oposto.appspot.com/o/arquivos%2FaxIPGWKanN4HSugGVS8O%2Fxs?alt=media&token=eddd742f-e01d-4ee7-8ccb-b6d6c8fdb826",
+          "md": "https://firebasestorage.googleapis.com/v0/b/universo-oposto.appspot.com/o/arquivos%2FaxIPGWKanN4HSugGVS8O%2Fmd?alt=media&token=788ac15d-572d-4e9c-961b-e9aaf37d58e2",
+          "sm": "https://firebasestorage.googleapis.com/v0/b/universo-oposto.appspot.com/o/arquivos%2FaxIPGWKanN4HSugGVS8O%2Fsm?alt=media&token=f52cefd9-5de3-43d4-8a01-400c0ca703a7"
         },
-        "createdAt": 1626195548139,
-        "tipo": "image/png",
-        "id": "OUwfpiLWZKJsQPPPEECC"
+        "createdAt": 1626300602819,
+        "createdBy": "marcelo.anselmo.souza@gmail.com",
+        "id": "axIPGWKanN4HSugGVS8O"
       }
     ],
     "_catId": {
-      "updatedBy": "marcelo.anselmo.souza@gmail.com",
-      "slug": "esporte",
-      "createdBy": "marcelo.anselmo.souza@gmail.com",
-      "updatedAt": 1625842172986,
       "createdAt": 1625842172986,
       "titulo": "Esporte",
+      "createdBy": "marcelo.anselmo.souza@gmail.com",
+      "updatedAt": 1625842172986,
+      "slug": "esporte",
+      "updatedBy": "marcelo.anselmo.souza@gmail.com",
       "id": "b6Gu76GyRF2thsEgQHqC"
     }
   }

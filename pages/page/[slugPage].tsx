@@ -1,9 +1,10 @@
 import { HomeOutlined } from "@ant-design/icons";
 import Layout from "@components/Layout";
+import Loading from "@components/Loading";
 import NextSeoHeader from "@components/NextSeoHeader";
 import IPagina from "@data/IPagina";
 import Container from "@styles/Container";
-import { Breadcrumb, Space, Spin } from "antd";
+import { Breadcrumb, Space } from "antd";
 import Text from "antd/lib/typography/Text";
 import Title from "antd/lib/typography/Title";
 import FirestoreApi from "firebase/FirebaseApi";
@@ -17,14 +18,7 @@ type Props = {
 export default function Pagina({ pagina }: Props) {
   const router = useRouter();
 
-  if (router.isFallback)
-    return (
-      <Layout>
-        <Container>
-          <Spin />
-        </Container>
-      </Layout>
-    );
+  if (router.isFallback) return <Loading />;
 
   if (!pagina) return null;
 
