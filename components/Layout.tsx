@@ -1,6 +1,7 @@
 import Footer from "@components/Footer";
-import Navbar from "@components/Navbar";
 import styled from "styled-components";
+import BgEstrelas from "./layout/BgEstrelas";
+import Logo from "./layout/Logo";
 
 type Props = {
   children: React.ReactNode;
@@ -9,7 +10,9 @@ type Props = {
 export default function Layout({ children }: Props) {
   return (
     <MainCss>
-      <Navbar />
+      <BgEstrelas />
+      <Logo />
+      {/* <Navbar /> */}
       <CorpoCss>{children}</CorpoCss>
       <Footer />
     </MainCss>

@@ -1,5 +1,6 @@
 import { useStore } from "@store/storeConfig";
 import "@styles/global.css";
+import "animate.css";
 import "antd/dist/antd.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";

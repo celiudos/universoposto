@@ -6,6 +6,8 @@ const ImgContainerCss = styled.div`
   border-radius: 5px;
   overflow: hidden;
   position: relative;
+  box-shadow: 1px 1px 5px 2px #9175c1;
+  background: #ebeeff;
 `;
 
 export default ImgContainerCss;

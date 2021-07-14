@@ -20,7 +20,7 @@ export default function Home({
       <NextSeoHeader />
       <Container>
         <RowCorpoCss gutter={[{ lg: 32 }, 16]}>
-          <Col xs={24} xl={17}>
+          <Col>
             {postDestaque && (
               <Row>
                 <Col>
@@ -28,6 +28,10 @@ export default function Home({
                 </Col>
               </Row>
             )}
+          </Col>
+        </RowCorpoCss>
+        <RowCorpoCss gutter={[{ lg: 32 }, 16]}>
+          <Col xs={24} xl={17}>
             <RowSubdestaqueCss>
               {postsSubdestaque
                 ? postsSubdestaque.map((post, key) => (
@@ -68,9 +72,9 @@ const RowCorpoCss = styled(Row)`
 `;
 
 const RowSubdestaqueCss = styled(Row)`
-  border-top: 1px solid #ccc;
-  margin: 20px 0 0 0;
-  padding: 20px 0 0 0;
+  /* border-top: 1px solid #ccc; */
+  /* margin: 20px 0 0 0;
+  padding: 20px 0 0 0; */
 
   /* @media only screen and (max-width: 1250px) {
     border-top: none;
