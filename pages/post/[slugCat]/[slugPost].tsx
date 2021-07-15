@@ -71,12 +71,10 @@ export default function Post({ post }: Props) {
             {imgExibicao && (
               <ImgContainerPostCss>
                 <Image
-                  layout="responsive"
-                  objectFit="contain"
+                  layout="fill"
+                  objectFit="cover"
                   src={imgExibicao?.[0].url.md}
                   alt={post.titulo}
-                  width={400}
-                  height={300}
                 />
               </ImgContainerPostCss>
             )}

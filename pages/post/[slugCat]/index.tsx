@@ -14,6 +14,7 @@ import Title from "antd/lib/typography/Title";
 import FirestoreApi from "firebase/FirebaseApi";
 import { useRouter } from "next/dist/client/router";
 import Image from "next/image";
+import styled from "styled-components";
 
 type Props = {
   categoria: ICategoria;
@@ -45,7 +46,7 @@ export default function Categoria({ categoria, posts }: Props) {
         </Space>
         <hr />
 
-        <List
+        <ListCss
           itemLayout="horizontal"
           size="large"
           dataSource={posts}
@@ -55,49 +56,60 @@ export default function Categoria({ categoria, posts }: Props) {
             },
             pageSize: 10,
           }}
-          renderItem={(post) => (
-            <List.Item>
-              <List.Item.Meta
-                avatar={
-                  post._imgExibicao ? (
+          renderItem={(data) => {
+            const post = data as IPost;
+            return (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={
+                    post._imgExibicao ? (
+                      <LinkPostECat
+                        catSlug={post._catId?.slug}
+                        postSlug={post.slug}
+                      >
+                        <ImgContainerCss style={{ width: 120, height: 80 }}>
+                          <Image
+                            layout="fill"
+                            src={post._imgExibicao?.[0].url.sm}
+                            alt={post.titulo}
+                          />
+                        </ImgContainerCss>
+                      </LinkPostECat>
+                    ) : null
+                  }
+                  title={
                     <LinkPostECat
                       catSlug={post._catId?.slug}
                       postSlug={post.slug}
                     >
-                      <ImgContainerCss style={{ width: 120, height: 80 }}>
-                        <Image
-                          layout="fill"
-                          src={post._imgExibicao?.[0].url.sm}
-                          alt={post.titulo}
-                        />
-                      </ImgContainerCss>
+                      <Text>{post.titulo}</Text>
                     </LinkPostECat>
-                  ) : null
-                }
-                title={
-                  <LinkPostECat
-                    catSlug={post._catId?.slug}
-                    postSlug={post.slug}
-                  >
-                    <Text>{post.titulo}</Text>
-                  </LinkPostECat>
-                }
-                description={
-                  <LinkPostECat
-                    catSlug={post._catId?.slug}
-                    postSlug={post.slug}
-                  >
-                    <Text>{post.resumo}</Text>
-                  </LinkPostECat>
-                }
-              />
-            </List.Item>
-          )}
+                  }
+                  description={
+                    <LinkPostECat
+                      catSlug={post._catId?.slug}
+                      postSlug={post.slug}
+                    >
+                      <Text>{post.resumo}</Text>
+                    </LinkPostECat>
+                  }
+                />
+              </List.Item>
+            );
+          }}
         />
       </Container>
     </Layout>
   );
 }
+
+export const ListCss = styled(List)`
+  @media only screen and (max-width: 900px) {
+    .ant-list-item-meta-description {
+      display: none;
+    }
+  }
+`;
 
 export async function getStaticPaths() {
   return {
