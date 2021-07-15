@@ -15,7 +15,9 @@ export default function NextSeoHeader({
 }: Props): JSX.Element {
   const titleFinal = title ? `${title} - ${siteData.titulo}` : siteData.titulo;
   const descriptionFinal = description ? description : siteData.subtitulo;
-  const urlImgFinal = urlImg ? urlImg : `${siteData.url}/logo/logo-180_180.png`;
+  const urlImgFinal = urlImg
+    ? urlImg
+    : `${siteData.url}/logo/logo-180_180-colorido.png`;
 
   return (
     <>
