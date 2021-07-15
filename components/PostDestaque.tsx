@@ -74,5 +74,6 @@ const ConteudoCss = styled.div`
 
   @media only screen and (max-width: 900px) {
     padding: 0;
+    margin: 10px 0 0 0;
   }
 `;

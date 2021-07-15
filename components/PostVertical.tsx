@@ -77,6 +77,7 @@ const ImgContainerDestaqueCss = styled(ImgContainerCss)`
 `;
 
 const ConteudoCss = styled.div`
+  margin: 10px 0 0;
   padding: 0 0 30px 0;
   width: 100%;
 `;

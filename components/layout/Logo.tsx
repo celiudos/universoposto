@@ -1,22 +1,39 @@
+import siteJson from "@data/site.json";
+import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 
-export default function LogoNovo() {
+export default function Logo() {
   return (
     <MainCss>
       <Link href={"/"} passHref>
-        <a>
-          <TituloContainerCss>
-            <TituloCss>
-              <span className="a">Universo</span>
-              <span className="b">Oposto</span>
-            </TituloCss>
-            <ContainerSetasCss className="animate__animated animate__rotateIn">
-              <Arrow tipo="cima" />
-              <Arrow />
-            </ContainerSetasCss>
-          </TituloContainerCss>
-        </a>
+        <LinkContainerLogoCss>
+          <ImgLogoContainerCss>
+            <Image
+              layout="fill"
+              objectFit="cover"
+              src={"/logo/logo-v3-sem-seta.png"}
+              alt="Logo"
+            />
+          </ImgLogoContainerCss>
+          <ImgSetaContainerCss>
+            <Image
+              layout="fill"
+              objectFit="cover"
+              src={"/logo/seta-cima.png"}
+              alt="Seta Cima"
+            />
+          </ImgSetaContainerCss>
+          <ImgSetaBaixoContainerCss>
+            <Image
+              layout="fill"
+              objectFit="cover"
+              src={"/logo/seta-baixo.png"}
+              alt="Seta Baixo"
+            />
+          </ImgSetaBaixoContainerCss>
+          <i>{siteJson.subtitulo}</i>
+        </LinkContainerLogoCss>
       </Link>
     </MainCss>
   );
@@ -32,99 +49,107 @@ const MainCss = styled.div`
   justify-content: center;
 `;
 
-const TituloContainerCss = styled.div`
+const LinkContainerLogoCss = styled.a`
   position: relative;
-  height: 60px;
+  color: #c0bdbd;
+
+  @media only screen and (max-width: 900px) {
+    margin: 0 0 50px;
+  }
+`;
+
+const ImgLogoContainerCss = styled.div`
+  position: relative;
   width: 460px;
-  text-align: center;
+  height: 60px;
 
   @media only screen and (max-width: 900px) {
     width: 260px;
+    height: 34px;
   }
 `;
 
-const TituloCss = styled.h1`
-  line-height: 100%;
-  margin: 0;
-  font-family: sans-serif;
-  font-size: 50px;
-  letter-spacing: 2px;
-  color: #a7cbeb;
-  .a {
-    margin-right: 30px;
-    -webkit-text-stroke: 2px #9175c1;
-  }
-  .b {
-    -webkit-text-stroke: 2px #3f51b5;
-  }
-
-  @media only screen and (max-width: 900px) {
-    font-size: 30px;
-  }
-`;
-
-function Arrow({ tipo = "baixo" }) {
-  let params = {
-    scale: 1.5,
-    tamanho: 24,
-    rotate: 45,
-    stroke: "#9175c1",
-    fill: "#5326a2",
-  };
-
-  if (tipo === "cima") {
-    params = {
-      ...params,
-      stroke: "#3f51b5",
-      fill: "#19287d",
-      rotate: 225,
-    };
-  }
-
-  return (
-    <svg
-      className={tipo}
-      xmlns="http://www.w3.org/2000/svg"
-      width={params.tamanho}
-      height={params.tamanho}
-      viewBox={`0 0 ${params.tamanho} ${params.tamanho}`}
-      strokeWidth="2"
-      stroke={params.stroke}
-      fill={params.fill}
-      transform={`rotate(${params.rotate}) scale(${params.scale})`}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-      <path d="M15 4v8h3.586a1 1 0 0 1 .707 1.707l-6.586 6.586a1 1 0 0 1 -1.414 0l-6.586 -6.586a1 1 0 0 1 .707 -1.707h3.586v-8a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1z"></path>
-    </svg>
-  );
-}
-
-const ContainerSetasCss = styled.span`
+const ImgSetaContainerCss = styled.div`
   position: absolute;
-  top: 0;
-  left: 50%;
-  width: 40px;
-  height: 100%;
+  opacity: 0;
+  width: 25px;
+  height: 25px;
+  animation-duration: 1s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+  /* animation-iteration-count: infinite; */
+  animation-name: moveSetaCima;
 
-  svg {
-    position: absolute;
-    left: 8px;
-    top: 3px;
-  }
+  left: 230px;
+  top: 10px;
 
-  svg.baixo {
-    top: 28px;
+  @keyframes moveSetaCima {
+    from {
+      opacity: 0;
+      left: 230px;
+      top: 10px;
+    }
+    to {
+      opacity: 1;
+      left: 240px;
+      top: 0;
+    }
   }
 
   @media only screen and (max-width: 900px) {
-    svg {
-      top: -5px;
-    }
+    width: 15px;
+    height: 15px;
+    left: 130px;
+    top: 5px;
 
-    svg.baixo {
+    @keyframes moveSetaCima {
+      from {
+        opacity: 0;
+        left: 130px;
+        top: 5px;
+      }
+      to {
+        opacity: 1;
+        left: 135px;
+        top: 0;
+      }
+    }
+  }
+`;
+
+const ImgSetaBaixoContainerCss = styled(ImgSetaContainerCss)`
+  animation-name: moveSetaBaixo;
+  left: 250px;
+  top: 10px;
+
+  @keyframes moveSetaBaixo {
+    from {
+      opacity: 0;
+      left: 250px;
+      top: 10px;
+    }
+    to {
+      opacity: 1;
+      left: 240px;
       top: 20px;
+    }
+  }
+
+  @media only screen and (max-width: 900px) {
+    left: 142px;
+    top: 5px;
+
+    @keyframes moveSetaBaixo {
+      from {
+        opacity: 0;
+        left: 142px;
+        top: 5px;
+      }
+      to {
+        opacity: 1;
+        left: 137px;
+        top: 10px;
+      }
     }
   }
 `;
