@@ -5,6 +5,7 @@ const Ad = styled.div`
   height: 100%;
   margin: 0 auto;
   background: #eee;
+  display: none;
 `;
 
 export default Ad;

@@ -9,8 +9,10 @@ import { Breadcrumb, Space } from "antd";
 import Text from "antd/lib/typography/Text";
 import Title from "antd/lib/typography/Title";
 import FirestoreApi from "firebase/FirebaseApi";
+import initFirebase from "firebase/firebaseInit";
 import { useRouter } from "next/dist/client/router";
 import Image from "next/image";
+import { useEffect } from "react";
 import styled from "styled-components";
 import DateUtils from "utils/DateUtils";
 
@@ -20,6 +22,17 @@ type Props = {
 
 export default function Post({ post }: Props) {
   const router = useRouter();
+
+  useEffect(() => {
+    if (!router.isFallback && post._catId && post.slug) {
+      const firebase = initFirebase();
+      firebase.analytics().logEvent("page_view", {
+        page_location: window.location.href,
+        page_path: `/post/${post._catId.slug}/${post.slug}`,
+        page_title: post.titulo,
+      });
+    }
+  }, [router.isFallback, post]);
 
   if (router.isFallback) return <Loading />;
 

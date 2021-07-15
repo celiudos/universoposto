@@ -1,3 +1,4 @@
+import "firebase/analytics";
 import firebase from "firebase/app";
 import "firebase/firestore";
 
@@ -16,6 +17,7 @@ function initFirebase(): typeof firebase {
   if (!firebase.apps.length) {
     firebase.initializeApp(clientCredentials);
     firebase.firestore();
+    firebase.analytics();
     // console.log("FIREBASE_APP INIT");
   } else {
     // console.log("JA INICIADO FIREBASE_APP");
