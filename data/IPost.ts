@@ -13,6 +13,7 @@ interface IPost extends IFirebase {
   isDestaque: boolean;
   isAtivo: boolean;
   resumo: string;
+  fonteOriginal: string;
   titulo: string;
   conteudo: string;
   publicacao?: number;

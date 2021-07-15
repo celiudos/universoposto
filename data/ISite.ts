@@ -2,6 +2,8 @@ interface ISite {
   site: string;
   titulo: string;
   subtitulo: string;
+  fraseFinal: string;
+  fraseFinalPosts: string;
   email: string;
   isMock: boolean;
 }

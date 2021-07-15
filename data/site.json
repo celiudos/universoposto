@@ -4,6 +4,7 @@
   "titulo": "Universo Oposto",
   "subtitulo": "O contrário da verdade",
   "fraseFinal": "Todos as notícias deste site não são verídicas",
+  "fraseFinalPosts": "Essa notícia não é verdadeira",
   "email": "contato@universoposto.com",
-  "isMock": true
+  "isMock": false
 }

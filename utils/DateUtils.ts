@@ -10,14 +10,23 @@ export default class DateUtils {
   static formatarDataUX({ data = "", formato = "PPPP" }: Props): string {
     try {
       if (typeof data === "string") data = parseInt(data);
-      return format(new Date(data), formato, {
-        locale: ptBR,
-      });
+      return this.capitalize(
+        format(new Date(data), formato, {
+          locale: ptBR,
+        })
+      );
     } catch (error) {
       console.log("Erro no formatarDataUX:", data, error);
       return "-";
     }
   }
+
+  static capitalize = (s: string): string => {
+    if (typeof s !== "string") {
+      return "";
+    }
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  };
 
   static getDateFirebase = (
     dataFirebase:

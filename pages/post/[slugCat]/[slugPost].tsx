@@ -4,8 +4,9 @@ import Layout from "@components/Layout";
 import Loading from "@components/Loading";
 import NextSeoHeader from "@components/NextSeoHeader";
 import IPost from "@data/IPost";
+import siteJson from "@data/site.json";
 import Container from "@styles/Container";
-import { Breadcrumb, Space } from "antd";
+import { Alert, Breadcrumb, Space } from "antd";
 import Text from "antd/lib/typography/Text";
 import Title from "antd/lib/typography/Title";
 import FirestoreApi from "firebase/FirebaseApi";
@@ -58,9 +59,9 @@ export default function Post({ post }: Props) {
           </Breadcrumb>
 
           <Title>{post.titulo}</Title>
-          <Title type="secondary" level={5}>
+          <TitleSubtituloCss type="secondary" level={5}>
             {post.resumo}
-          </Title>
+          </TitleSubtituloCss>
           <div>
             <Text>{DateUtils.formatarDataUX({ data: post.updatedAt })}</Text>
           </div>
@@ -79,13 +80,26 @@ export default function Post({ post }: Props) {
                 />
               </ImgContainerPostCss>
             )}
-            <Text>
+            <TextCorpoNoticiaCss>
               <span
                 dangerouslySetInnerHTML={{
                   __html: post.conteudo,
                 }}
               ></span>
-            </Text>
+            </TextCorpoNoticiaCss>
+            <Alert
+              message="Informe"
+              description={
+                <>
+                  {siteJson.fraseFinalPosts}.{" "}
+                  <a target="_blank" href={post.fonteOriginal} rel="noreferrer">
+                    Clique aqui para ver a notícia original.
+                  </a>
+                </>
+              }
+              type="info"
+              showIcon
+            />
           </div>
         </Space>
       </Container>
@@ -97,7 +111,7 @@ const ImgContainerPostCss = styled(ImgContainerCss)`
   float: right;
   width: 400px;
   height: 300px;
-  margin-left: 10px;
+  margin-left: 20px;
 
   @media only screen and (max-width: 900px) {
     float: none;
@@ -105,6 +119,19 @@ const ImgContainerPostCss = styled(ImgContainerCss)`
     width: 300px;
     height: 200px;
   }
+`;
+
+const TitleSubtituloCss = styled(Title)`
+  font-size: 1.4em !important;
+`;
+
+const TextCorpoNoticiaCss = styled(Text)`
+  font-family: opensans, helvetica, arial, sans-serif;
+  font-size: 1.25rem;
+  line-height: 2rem;
+  margin-bottom: 2rem;
+  overflow-wrap: break-word;
+  color: #333;
 `;
 
 export async function getStaticPaths() {
