@@ -20,7 +20,7 @@ export default function Logo() {
             <Image
               layout="fill"
               objectFit="cover"
-              src={"/logo/seta-cima.png"}
+              src={"/logo/seta-cima-v2.png"}
               alt="Seta Cima"
             />
           </ImgSetaContainerCss>

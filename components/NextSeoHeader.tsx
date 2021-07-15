@@ -14,13 +14,14 @@ export default function NextSeoHeader({
   urlImg,
 }: Props): JSX.Element {
   const titleFinal = title ? `${title} - ${siteData.titulo}` : siteData.titulo;
-  const urlImgFinal = urlImg ? urlImg : `${siteData.url}/logo/logo-grande.png`;
+  const descriptionFinal = description ? description : siteData.subtitulo;
+  const urlImgFinal = urlImg ? urlImg : `${siteData.url}/logo/logo-v3.png`;
 
   return (
     <>
       <NextSeo
         title={titleFinal}
-        description={description}
+        description={descriptionFinal}
         additionalLinkTags={[
           {
             rel: "icon",
@@ -41,7 +42,7 @@ export default function NextSeoHeader({
           type: "website",
           url: siteData.url,
           title: titleFinal,
-          description: description,
+          description: descriptionFinal,
           images: [
             {
               url: urlImgFinal,

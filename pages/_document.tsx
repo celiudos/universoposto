@@ -61,7 +61,8 @@ export default class MyDocument extends Document {
           />
           <link rel="manifest" href="/site.webmanifest" />
           <meta name="msapplication-TileColor" content="#375C9E" />
-          <meta name="theme-color" content="#ffffff"></meta>
+
+          <meta name="theme-color" content="#5326a2" />
         </Head>
         <body>
           <Main />

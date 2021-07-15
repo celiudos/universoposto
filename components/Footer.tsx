@@ -19,7 +19,7 @@ export default function Footer(): JSX.Element {
               Buscar
             </Menu.Item> */}
               <Menu.Item key="sobre">
-                <Link href={"/page/sobre"} passHref>
+                <Link href={"/sobre"} passHref>
                   <a>Sobre</a>
                 </Link>
               </Menu.Item>
